@@ -166,7 +166,6 @@ class _MyAppState extends State<MyApp> {
   void initState () {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
-      extractData();
       setState(() {
         isLoading = true;
       });
@@ -209,7 +208,7 @@ class _MyAppState extends State<MyApp> {
         length: 7,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('창원대 긱식'),
+            title: const Text('창대긱식'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.refresh_rounded),
