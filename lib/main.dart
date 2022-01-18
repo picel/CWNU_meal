@@ -268,21 +268,69 @@ class _MyAppState extends State<MyApp> {
                           ? const CircularProgressIndicator()
                           : Column(
                         children: [
-                          Text(result[0],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 2.0,
+                                  offset: Offset(0, 1)
+                                )
+                              ]
+                            ),
+                            child: Text(result[0],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                           ),
-                          Text(result[1],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: MediaQuery.of(context).size.height * 0.03,
                           ),
-                          Text(result[2],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[1],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[2],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       ),
                     ],
@@ -294,21 +342,69 @@ class _MyAppState extends State<MyApp> {
                           ? const CircularProgressIndicator()
                           : Column(
                         children: [
-                          Text(result[3],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[3],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                           ),
-                          Text(result[4],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: MediaQuery.of(context).size.height * 0.03,
                           ),
-                          Text(result[5],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[4],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[5],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       )
                     ],
@@ -320,21 +416,69 @@ class _MyAppState extends State<MyApp> {
                           ? const CircularProgressIndicator()
                           : Column(
                         children: [
-                          Text(result[6],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[6],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                           ),
-                          Text(result[7],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: MediaQuery.of(context).size.height * 0.03,
                           ),
-                          Text(result[8],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[7],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[8],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       )
                     ],
@@ -346,21 +490,69 @@ class _MyAppState extends State<MyApp> {
                           ? const CircularProgressIndicator()
                           : Column(
                         children: [
-                          Text(result[9],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[9],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                           ),
-                          Text(result[10],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: MediaQuery.of(context).size.height * 0.03,
                           ),
-                          Text(result[11],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[10],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[11],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       )
                     ],
@@ -372,21 +564,69 @@ class _MyAppState extends State<MyApp> {
                           ? const CircularProgressIndicator()
                           : Column(
                         children: [
-                          Text(result[12],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[12],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                           ),
-                          Text(result[13],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: MediaQuery.of(context).size.height * 0.03,
                           ),
-                          Text(result[14],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[13],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[14],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       )
                     ],
@@ -398,21 +638,69 @@ class _MyAppState extends State<MyApp> {
                           ? const CircularProgressIndicator()
                           : Column(
                         children: [
-                          Text(result[15],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[15],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                           ),
-                          Text(result[16],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: MediaQuery.of(context).size.height * 0.03,
                           ),
-                          Text(result[17],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[16],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[17],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       )
                     ],
@@ -424,21 +712,69 @@ class _MyAppState extends State<MyApp> {
                           ? const CircularProgressIndicator()
                           : Column(
                         children: [
-                          Text(result[18],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[18],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                           ),
-                          Text(result[19],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: MediaQuery.of(context).size.height * 0.03,
                           ),
-                          Text(result[20],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[19],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            padding: const EdgeInsets.all(30),
+                            alignment: Alignment.centerLeft,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)
+                                  )
+                                ]
+                            ),
+                            child: Text(result[20],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       )
                     ],
