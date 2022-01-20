@@ -268,9 +268,9 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                               color: Colors.white,
@@ -290,9 +290,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -312,9 +312,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -342,9 +342,9 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -364,9 +364,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -386,9 +386,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -416,9 +416,9 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -438,9 +438,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -460,9 +460,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -490,9 +490,9 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -512,9 +512,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -534,9 +534,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -564,9 +564,9 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -586,9 +586,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -608,9 +608,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -638,9 +638,9 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -660,9 +660,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -682,9 +682,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -712,9 +712,9 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -734,9 +734,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -756,9 +756,9 @@ class _MyAppState extends State<MyApp> {
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 180,
-                            width: 300,
-                            padding: const EdgeInsets.all(30),
+                            height: 140,
+                            width: 250,
+                            padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
                                 color: Colors.white,
