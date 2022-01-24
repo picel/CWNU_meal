@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   bool isLoading = false;
 
   Future<List<String>> extractData() async {
-    final response = await http.Client().get(Uri.parse('https://www.changwon.ac.kr/dorm/na/ntt/selectNttInfo.do?nttSn=1240653&mi=10079&editYn=N&listCo=15&hasManageBbsAuth=false&dietAuth=N'));
+    final response = await http.Client().get(Uri.parse('https://www.changwon.ac.kr/dorm/na/ntt/selectNttList.do?mi=10079&bbsId=2918'));
     if (response.statusCode == 200) {
       var document = parser.parse(response.body);
       try {
@@ -171,27 +171,9 @@ class _MyAppState extends State<MyApp> {
       });
       final response = await extractData();
       setState(() {
-        result[0] = response[0];
-        result[1] = response[1];
-        result[2] = response[2];
-        result[3] = response[3];
-        result[4] = response[4];
-        result[5] = response[5];
-        result[6] = response[6];
-        result[7] = response[7];
-        result[8] = response[8];
-        result[9] = response[9];
-        result[10] = response[10];
-        result[11] = response[11];
-        result[12] = response[12];
-        result[13] = response[13];
-        result[14] = response[14];
-        result[15] = response[15];
-        result[16] = response[16];
-        result[17] = response[17];
-        result[18] = response[18];
-        result[19] = response[19];
-        result[20] = response[20];
+        for(int i = 0; i <= 20; i++){
+          result[i] = response[i];
+        }
         isLoading = false;
       });
     });
@@ -199,6 +181,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    double boxWidth = MediaQuery.of(context).size.width * 0.7;
+    double boxHeight = MediaQuery.of(context).size.height * 0.2;
+    double fontSize = MediaQuery.of(context).size.height * 0.025;
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.black,
@@ -218,27 +203,9 @@ class _MyAppState extends State<MyApp> {
                   });
                   final response = await extractData();
                   setState(() {
-                    result[0] = response[0];
-                    result[1] = response[1];
-                    result[2] = response[2];
-                    result[3] = response[3];
-                    result[4] = response[4];
-                    result[5] = response[5];
-                    result[6] = response[6];
-                    result[7] = response[7];
-                    result[8] = response[8];
-                    result[9] = response[9];
-                    result[10] = response[10];
-                    result[11] = response[11];
-                    result[12] = response[12];
-                    result[13] = response[13];
-                    result[14] = response[14];
-                    result[15] = response[15];
-                    result[16] = response[16];
-                    result[17] = response[17];
-                    result[18] = response[18];
-                    result[19] = response[19];
-                    result[20] = response[20];
+                    for(int i = 0; i <= 20; i++){
+                      result[i] = response[i];
+                    }
                     isLoading = false;
                   });
                 },)
@@ -268,8 +235,8 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -283,15 +250,15 @@ class _MyAppState extends State<MyApp> {
                               ]
                             ),
                             child: Text(result[0],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -305,15 +272,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[1],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -327,8 +294,8 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[2],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                         ],
                       ),
@@ -342,8 +309,8 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -357,15 +324,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[3],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -379,15 +346,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[4],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -401,8 +368,8 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[5],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                         ],
                       )
@@ -416,8 +383,8 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -431,15 +398,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[6],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -453,15 +420,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[7],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -475,8 +442,8 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[8],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                         ],
                       )
@@ -490,8 +457,8 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -505,15 +472,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[9],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -527,15 +494,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[10],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -549,8 +516,8 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[11],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                         ],
                       )
@@ -564,8 +531,8 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -579,15 +546,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[12],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -601,15 +568,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[13],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -623,8 +590,8 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[14],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                         ],
                       )
@@ -638,8 +605,8 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -653,15 +620,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[15],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -675,15 +642,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[16],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -697,8 +664,8 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[17],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                         ],
                       )
@@ -712,8 +679,8 @@ class _MyAppState extends State<MyApp> {
                           : Column(
                         children: [
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -727,15 +694,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[18],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -749,15 +716,15 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[19],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
-                            height: 140,
-                            width: 250,
+                            height: boxHeight,
+                            width: boxWidth,
                             padding: const EdgeInsets.all(10),
                             alignment: Alignment.centerLeft,
                             decoration: const BoxDecoration(
@@ -771,8 +738,8 @@ class _MyAppState extends State<MyApp> {
                                 ]
                             ),
                             child: Text(result[20],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: fontSize, fontWeight: FontWeight.bold)),
                           ),
                         ],
                       )
