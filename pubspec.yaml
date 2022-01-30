@@ -32,7 +32,6 @@ dependencies:
   html: ^0.15.0
   flutter:
     sdk: flutter
-  home_widget: ^0.1.5
 
 dev_dependencies:
   flutter_test:

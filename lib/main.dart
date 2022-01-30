@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:html/parser.dart' as parser;
-import 'package:home_widget/home_widget.dart';
 
-void main() => runApp(MaterialApp(home: const MyApp()));
+void main() => runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: const MyApp())
+);
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,60 +20,31 @@ class _MyAppState extends State<MyApp> {
 
   bool isLoading = false;
 
-  Future<List<String>> extractData() async {
-    List<String> list = List.filled(21, '', growable: false);
-    final response = await http.Client().get(Uri.parse(
-        'https://www.changwon.ac.kr/dorm/na/ntt/selectNttList.do?mi=10079&bbsId=2918'));
-    if (response.statusCode == 200) {
-      var document = parser
-          .parse(response.body)
-          .getElementsByClassName('BD_table')[0]
-          .children[0]
-          .children[2];
-      try {
-        list[0] = document.children[2].children[2].text.trim();
-        list[1] = document.children[4].children[2].text.trim();
-        list[2] = document.children[7].children[2].text.trim();
-        list[3] = document.children[2].children[3].text.trim();
-        list[4] = document.children[4].children[3].text.trim();
-        list[5] = document.children[7].children[3].text.trim();
-        list[6] = document.children[2].children[4].text.trim();
-        list[7] = document.children[4].children[4].text.trim();
-        list[8] = document.children[7].children[4].text.trim();
-        list[9] = document.children[2].children[5].text.trim();
-        list[10] = document.children[4].children[5].text.trim();
-        list[11] = document.children[7].children[5].text.trim();
-        list[12] = document.children[2].children[6].text.trim();
-        list[13] = document.children[4].children[6].text.trim();
-        list[14] = document.children[7].children[6].text.trim();
-        list[15] = document.children[2].children[7].text.trim();
-        list[16] = document.children[4].children[7].text.trim();
-        list[17] = document.children[7].children[7].text.trim();
-        list[18] = document.children[2].children[8].text.trim();
-        list[19] = document.children[4].children[8].text.trim();
-        list[20] = document.children[7].children[8].text.trim();
-        return list;
-      } catch (e) {
-        return ['ERROR!'];
-      }
-    } else {
-      return ['ERROR: ${response.statusCode}.'];
+  void fetchData() async {
+    try {
+      http.Response response = await http.get(Uri.parse('https://MiscellaneousFiles.b-cdn.net/crawl.json'));
+      String jsonData = utf8.decode(response.bodyBytes);
+      var dataset = jsonDecode(jsonData);
+      setState(() {
+        int k = 0;
+        for(int i = 0; i < 7; i++){
+          for(int j = 0; j < 3; j++){
+            result[k] = dataset[i.toString()][j];
+            k++;
+          }
+        }
+        isLoading = false;
+      });
+    } catch (e) {
+      print('error!');
     }
   }
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
-      setState(() {
-        isLoading = true;
-      });
-      final response = await extractData();
-      setState(() {
-        result = response;
-        isLoading = false;
-      });
-    });
+    isLoading = true;
+    fetchData();
   }
 
   @override
@@ -91,14 +65,8 @@ class _MyAppState extends State<MyApp> {
               IconButton(
                 icon: const Icon(Icons.refresh_rounded),
                 onPressed: () async {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  final response = await extractData();
-                  setState(() {
-                    result = response;
-                    isLoading = false;
-                  });
+                  isLoading = true;
+                  fetchData();
                 },
               )
             ],
@@ -123,105 +91,105 @@ class _MyAppState extends State<MyApp> {
                   isLoading
                       ? const CircularProgressIndicator()
                       : Column(
-                          children: [
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("아침",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[0],
-                                      style: TextStyle(
-                                          fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("점심",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[1],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("저녁",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[2],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                          ],
-                        ),
+                    children: [
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("아침",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[0],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("점심",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[1],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("저녁",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[2],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                    ],
+                  ),
                 ],
               ),
               Column(
@@ -230,105 +198,105 @@ class _MyAppState extends State<MyApp> {
                   isLoading
                       ? const CircularProgressIndicator()
                       : Column(
-                          children: [
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("아침",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[3],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("점심",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[4],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("저녁",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[5],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                          ],
-                        )
+                    children: [
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("아침",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[3],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("점심",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[4],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("저녁",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[5],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                    ],
+                  )
                 ],
               ),
               Column(
@@ -337,105 +305,105 @@ class _MyAppState extends State<MyApp> {
                   isLoading
                       ? const CircularProgressIndicator()
                       : Column(
-                          children: [
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("아침",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[6],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("점심",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[7],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("저녁",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[8],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                          ],
-                        )
+                    children: [
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("아침",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[6],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("점심",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[7],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("저녁",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[8],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                    ],
+                  )
                 ],
               ),
               Column(
@@ -444,105 +412,105 @@ class _MyAppState extends State<MyApp> {
                   isLoading
                       ? const CircularProgressIndicator()
                       : Column(
-                          children: [
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("아침",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[9],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("점심",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[10],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("저녁",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[11],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                          ],
-                        )
+                    children: [
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("아침",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[9],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("점심",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[10],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("저녁",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[11],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                    ],
+                  )
                 ],
               ),
               Column(
@@ -551,105 +519,105 @@ class _MyAppState extends State<MyApp> {
                   isLoading
                       ? const CircularProgressIndicator()
                       : Column(
-                          children: [
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("아침",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[12],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("점심",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[13],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("저녁",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[14],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                          ],
-                        )
+                    children: [
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("아침",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[12],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("점심",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[13],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("저녁",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[14],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                    ],
+                  )
                 ],
               ),
               Column(
@@ -658,105 +626,105 @@ class _MyAppState extends State<MyApp> {
                   isLoading
                       ? const CircularProgressIndicator()
                       : Column(
-                          children: [
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("아침",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[15],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("점심",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[16],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("저녁",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[17],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                          ],
-                        )
+                    children: [
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("아침",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[15],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("점심",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[16],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("저녁",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[17],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                    ],
+                  )
                 ],
               ),
               Column(
@@ -765,105 +733,105 @@ class _MyAppState extends State<MyApp> {
                   isLoading
                       ? const CircularProgressIndicator()
                       : Column(
-                          children: [
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("아침",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[18],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("점심",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[19],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Container(
-                              height: boxHeight,
-                              width: boxWidth,
-                              padding: const EdgeInsets.all(20),
-                              alignment: Alignment.centerLeft,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.0,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("저녁",
-                                      style: TextStyle(
-                                          fontSize: titleFontSize,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.01
-                                  ),
-                                  Text(result[20],
-                                      style: TextStyle(
-                                        fontSize: fontSize,)),
-                                ],
-                              )
-                            ),
-                          ],
-                        )
+                    children: [
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("아침",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[18],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("점심",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[19],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("저녁",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[20],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                    ],
+                  )
                 ],
               ),
             ]),
