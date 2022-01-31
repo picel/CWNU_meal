@@ -6,28 +6,30 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
-import 'bonglim.dart';
-import 'dorm_all.dart';
+import 'bonglimDBaek_all.dart';
+import 'bonglimDBok_all.dart';
+import 'main.dart';
 
 void main() => runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyApp())
+    home: Bonglim())
 );
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Bonglim extends StatefulWidget {
+  const Bonglim({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<Bonglim> {
   List result = List.filled(21, '', growable: false);
+
   bool isLoading = false;
 
   void fetchData() async {
     try {
-      http.Response response = await http.get(Uri.parse('https://MiscellaneousFiles.b-cdn.net/dorm.json'));
+      http.Response response = await http.get(Uri.parse('https://MiscellaneousFiles.b-cdn.net/bonglim.json'));
       String jsonData = utf8.decode(response.bodyBytes);
       var dataset = jsonDecode(jsonData);
 
@@ -52,15 +54,9 @@ class _MyAppState extends State<MyApp> {
           case 'Fri':
             i = 4;
             break;
-          case 'Sat':
-            i = 5;
-            break;
-          case 'Sun':
-            i = 6;
-            break;
         }
         int k = 0;
-        for(int j = 0; j < 3; j++){
+        for(int j = 0; j < 5; j++){
           result[k] = dataset[i.toString()][j];
           k++;
         }
@@ -83,20 +79,21 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
-    double boxHeight = MediaQuery.of(context).size.height * 0.21;
+    double halfBoxWidth = MediaQuery.of(context).size.width * 0.33;
+    double boxHeight = MediaQuery.of(context).size.height * 0.33;
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.07;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double fontSize = MediaQuery.of(context).size.height * 0.018;
+    double fontSize = MediaQuery.of(context).size.height * 0.015;
     double titleFontSize = MediaQuery.of(context).size.height * 0.022;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
-        length: 1,
+        length: 2,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xff153c85),
-            title: const Text('기숙사'),
+            title: const Text('봉림관'),
             centerTitle: true,
             actions: [
               IconButton(
@@ -111,42 +108,43 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                    child: Text('Drawer Header'),
-                  decoration: BoxDecoration(
-                    color: Color(0xff153c85)
-                  )
-                ),
-                ListTile(
-                  title: const Text('기숙사'),
-                  onTap: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MyApp()));
-                  },
-                ),
-                ListTile(
-                  title: const Text('봉림관'),
-                  onTap: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Bonglim()));
-                  },
-                )
-              ]
-            )
+              child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    const DrawerHeader(
+                        child: Text('Drawer Header'),
+                        decoration: BoxDecoration(
+                            color: Color(0xff153c85)
+                        )
+                    ),
+                    ListTile(
+                      title: const Text('기숙사'),
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyApp()));
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('봉림관'),
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Bonglim()));
+                      },
+                    )
+                  ]
+              )
           ),
           bottomNavigationBar: const TabBar(
             indicatorColor: Colors.transparent,
             unselectedLabelColor: Colors.grey,
             labelColor: Color(0xff153c85),
             tabs: [
-              Tab(child: Text("기숙사"))
-              ],
-            ),
+              Tab(child: Text("동백홀")),
+              Tab(child: Text("다복솔")),
+            ],
+          ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: TabBarView(children: [
@@ -161,22 +159,21 @@ class _MyAppState extends State<MyApp> {
                       : Column(
                     children: [
                       Container(
-                        height: buttonHei,
-                        width: buttonWid,
-                        alignment: Alignment.topRight,
-                        child: CupertinoButton(
-                          child: Text('전체 식단 보기',
-                          style: TextStyle(
-                            color: const Color(0xff153c85),
-                            fontSize: btnFont,
-                          ),),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const dorm_all()),
-                            );
-                          },
-                        )
+                          height: buttonHei,
+                          width: buttonWid,
+                          alignment: Alignment.topRight,
+                          child: CupertinoButton(
+                            child: Text('전체 식단 보기',
+                              style: TextStyle(
+                                color: const Color(0xff153c85),
+                                fontSize: btnFont,
+                              ),),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const BonglimDBaek()));
+                            },
+                          )
                       ),
                       Container(
                           height: boxHeight,
@@ -195,7 +192,7 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침",
+                              Text("점심",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -228,7 +225,7 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("저녁",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -240,6 +237,105 @@ class _MyAppState extends State<MyApp> {
                                     fontSize: fontSize,)),
                             ],
                           )
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  isLoading
+                      ? SpinKitThreeBounce(
+                    color: const Color(0xff153c85),
+                    size: 30.0,
+                  )
+                      : Column(
+                    children: [
+                      Container(
+                          height: buttonHei,
+                          width: buttonWid,
+                          alignment: Alignment.topRight,
+                          child: CupertinoButton(
+                            child: Text('전체 식단 보기',
+                              style: TextStyle(
+                                color: const Color(0xff153c85),
+                                fontSize: btnFont,
+                              ),),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const BonglimDBok()));
+                            },
+                          )
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                              height: boxHeight,
+                              width: halfBoxWidth,
+                              padding: const EdgeInsets.all(20),
+                              alignment: Alignment.centerLeft,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 2.0,
+                                        offset: Offset(0, 1))
+                                  ]),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("점심",
+                                      style: TextStyle(
+                                          fontSize: titleFontSize,
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(
+                                      height: MediaQuery.of(context).size.height * 0.01
+                                  ),
+                                  Text(result[2],
+                                      style: TextStyle(
+                                        fontSize: fontSize,)),
+                                ],
+                              )
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.04
+                          ),
+                          Container(
+                              height: boxHeight,
+                              width: halfBoxWidth,
+                              padding: const EdgeInsets.all(20),
+                              alignment: Alignment.centerLeft,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 2.0,
+                                        offset: Offset(0, 1))
+                                  ]),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("분식",
+                                      style: TextStyle(
+                                          fontSize: titleFontSize,
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(
+                                      height: MediaQuery.of(context).size.height * 0.01
+                                  ),
+                                  Text(result[2],
+                                      style: TextStyle(
+                                        fontSize: fontSize,)),
+                                ],
+                              )
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.03,
@@ -268,14 +364,14 @@ class _MyAppState extends State<MyApp> {
                               SizedBox(
                                   height: MediaQuery.of(context).size.height * 0.01
                               ),
-                              Text(result[2],
+                              Text(result[3],
                                   style: TextStyle(
                                     fontSize: fontSize,)),
                             ],
                           )
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ]),

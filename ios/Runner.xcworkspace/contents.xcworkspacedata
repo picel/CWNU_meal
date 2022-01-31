@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/sangbeomkim/StudioProjects/untitled/ios/Runner.xcodeproj">
+      location = "group:Runner.xcworkspace">
    </FileRef>
 </Workspace>
