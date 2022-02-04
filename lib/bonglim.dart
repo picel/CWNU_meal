@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cwnumeal/navDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +9,6 @@ import 'package:intl/intl.dart';
 
 import 'bonglimDBaek_all.dart';
 import 'bonglimDBok_all.dart';
-import 'main.dart';
 
 void main() => runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -37,7 +37,7 @@ class _MyAppState extends State<Bonglim> {
       String today = DateFormat('E').format(date);
 
       setState(() {
-        int i = 0;
+        int i = 10;
         switch(today) {
           case 'Mon':
             i = 0;
@@ -54,11 +54,17 @@ class _MyAppState extends State<Bonglim> {
           case 'Fri':
             i = 4;
             break;
+          default:
+            i = 10;
         }
         int k = 0;
-        for(int j = 0; j < 5; j++){
-          result[k] = dataset[i.toString()][j];
-          k++;
+        if (i == 10){
+          result = List.filled(21, '주말은 문 닫아용', growable: false);
+        } else{
+          for(int j = 0; j < 5; j++){
+            result[k] = dataset[i.toString()][j];
+            k++;
+          }
         }
         isLoading = false;
       });
@@ -107,35 +113,7 @@ class _MyAppState extends State<Bonglim> {
               )
             ],
           ),
-          drawer: Drawer(
-              child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    const DrawerHeader(
-                        child: Text('Drawer Header'),
-                        decoration: BoxDecoration(
-                            color: Color(0xff153c85)
-                        )
-                    ),
-                    ListTile(
-                      title: const Text('기숙사'),
-                      onTap: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const MyApp()));
-                      },
-                    ),
-                    ListTile(
-                      title: const Text('봉림관'),
-                      onTap: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const Bonglim()));
-                      },
-                    )
-                  ]
-              )
-          ),
+          drawer: navDrawer(),
           bottomNavigationBar: const TabBar(
             indicatorColor: Colors.transparent,
             unselectedLabelColor: Colors.grey,
@@ -329,7 +307,7 @@ class _MyAppState extends State<Bonglim> {
                                   SizedBox(
                                       height: MediaQuery.of(context).size.height * 0.01
                                   ),
-                                  Text(result[2],
+                                  Text(result[4],
                                       style: TextStyle(
                                         fontSize: fontSize,)),
                                 ],

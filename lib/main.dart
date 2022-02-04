@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:cwnumeal/navDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
-import 'bonglim.dart';
 import 'dorm_all.dart';
 
 void main() => runApp(const MaterialApp(
@@ -110,43 +110,15 @@ class _MyAppState extends State<MyApp> {
               )
             ],
           ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                    child: Text('Drawer Header'),
-                  decoration: BoxDecoration(
-                    color: Color(0xff153c85)
-                  )
-                ),
-                ListTile(
-                  title: const Text('기숙사'),
-                  onTap: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MyApp()));
-                  },
-                ),
-                ListTile(
-                  title: const Text('봉림관'),
-                  onTap: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Bonglim()));
-                  },
-                )
-              ]
-            )
-          ),
+          drawer: navDrawer(),
           bottomNavigationBar: const TabBar(
             indicatorColor: Colors.transparent,
             unselectedLabelColor: Colors.grey,
             labelColor: Color(0xff153c85),
             tabs: [
               Tab(child: Text("기숙사"))
-              ],
-            ),
+            ],
+          ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: TabBarView(children: [
@@ -161,22 +133,22 @@ class _MyAppState extends State<MyApp> {
                       : Column(
                     children: [
                       Container(
-                        height: buttonHei,
-                        width: buttonWid,
-                        alignment: Alignment.topRight,
-                        child: CupertinoButton(
-                          child: Text('전체 식단 보기',
-                          style: TextStyle(
-                            color: const Color(0xff153c85),
-                            fontSize: btnFont,
-                          ),),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const dorm_all()),
-                            );
-                          },
-                        )
+                          height: buttonHei,
+                          width: buttonWid,
+                          alignment: Alignment.topRight,
+                          child: CupertinoButton(
+                            child: Text('전체 식단 보기',
+                              style: TextStyle(
+                                color: const Color(0xff153c85),
+                                fontSize: btnFont,
+                              ),),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const dorm_all()),
+                              );
+                            },
+                          )
                       ),
                       Container(
                           height: boxHeight,

@@ -70,7 +70,7 @@ class _MyAppState extends State<BonglimDBaek> {
                   Navigator.pop(context);
                 }),
             backgroundColor: const Color(0xff153c85),
-            title: const Text('봉림관'),
+            title: const Text('동백홀 전체 식단'),
             centerTitle: true,
             actions: [
               IconButton(

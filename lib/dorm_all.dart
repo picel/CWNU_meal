@@ -70,7 +70,7 @@ class _MyAppState extends State<dorm_all> {
                   Navigator.pop(context);
                 }),
             backgroundColor: const Color(0xff153c85),
-            title: const Text('창대긱식'),
+            title: const Text('기숙사 전체 식단'),
             centerTitle: true,
             actions: [
               IconButton(
