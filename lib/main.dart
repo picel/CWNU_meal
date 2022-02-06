@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xff153c85),
-            title: const Text('기숙사'),
+            title: const Text('오늘의 기숙사 식단'),
             centerTitle: true,
             actions: [
               IconButton(
@@ -111,13 +111,15 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           drawer: navDrawer(),
-          bottomNavigationBar: const TabBar(
-            indicatorColor: Colors.transparent,
-            unselectedLabelColor: Colors.grey,
-            labelColor: Color(0xff153c85),
-            tabs: [
-              Tab(child: Text("기숙사"))
-            ],
+          bottomNavigationBar: SafeArea(
+            child: const TabBar(
+              indicatorColor: Colors.transparent,
+              unselectedLabelColor: Colors.grey,
+              labelColor: Color(0xff153c85),
+              tabs: [
+                Tab(child: Text("기숙사"))
+              ],
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),

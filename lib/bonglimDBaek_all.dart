@@ -83,18 +83,15 @@ class _MyAppState extends State<BonglimDBaek> {
                 },
               )
             ],
-          ),
-          bottomNavigationBar: const TabBar(
-            indicatorColor: Colors.transparent,
-            unselectedLabelColor: Colors.grey,
-            labelColor: Color(0xff153c85),
-            tabs: [
-              Tab(child: Text("월")),
-              Tab(child: Text("화")),
-              Tab(child: Text("수")),
-              Tab(child: Text("목")),
-              Tab(child: Text("금")),
-            ],
+            bottom: const TabBar(
+              tabs: [
+                Tab(child: Text("월")),
+                Tab(child: Text("화")),
+                Tab(child: Text("수")),
+                Tab(child: Text("목")),
+                Tab(child: Text("금")),
+              ],
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),

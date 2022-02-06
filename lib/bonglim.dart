@@ -99,7 +99,7 @@ class _MyAppState extends State<Bonglim> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xff153c85),
-            title: const Text('봉림관'),
+            title: const Text('오늘의 봉림관 식단'),
             centerTitle: true,
             actions: [
               IconButton(
@@ -114,14 +114,16 @@ class _MyAppState extends State<Bonglim> {
             ],
           ),
           drawer: navDrawer(),
-          bottomNavigationBar: const TabBar(
-            indicatorColor: Colors.transparent,
-            unselectedLabelColor: Colors.grey,
-            labelColor: Color(0xff153c85),
-            tabs: [
-              Tab(child: Text("동백홀")),
-              Tab(child: Text("다복솔")),
-            ],
+          bottomNavigationBar: SafeArea(
+            child: const TabBar(
+              indicatorColor: Colors.transparent,
+              unselectedLabelColor: Colors.grey,
+              labelColor: Color(0xff153c85),
+              tabs: [
+                Tab(child: Text("동백홀")),
+                Tab(child: Text("다복솔")),
+              ],
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
