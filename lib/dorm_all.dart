@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'main.dart';
+
 void main() => runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: dorm_all())

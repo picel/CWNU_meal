@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'main.dart';
+
 void main() => runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: BonglimDBok())
@@ -54,7 +56,7 @@ class _MyAppState extends State<BonglimDBok> {
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
     double halfBoxWidth = MediaQuery.of(context).size.width * 0.33;
-    double boxHeight = MediaQuery.of(context).size.height * 0.33;
+    double boxHeight = MediaQuery.of(context).size.height * 0.3;
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.07;
     double fontSize = MediaQuery.of(context).size.height * 0.015;

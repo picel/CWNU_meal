@@ -54,8 +54,6 @@ class _MyAppState extends State<Bonglim> {
           case 'Fri':
             i = 4;
             break;
-          default:
-            i = 10;
         }
         int k = 0;
         if (i == 10){
@@ -86,11 +84,11 @@ class _MyAppState extends State<Bonglim> {
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
     double halfBoxWidth = MediaQuery.of(context).size.width * 0.33;
-    double boxHeight = MediaQuery.of(context).size.height * 0.33;
+    double boxHeight = MediaQuery.of(context).size.height * 0.3;
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.07;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double fontSize = MediaQuery.of(context).size.height * 0.015;
+    double fontSize = MediaQuery.of(context).size.height * 0.012;
     double titleFontSize = MediaQuery.of(context).size.height * 0.022;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
