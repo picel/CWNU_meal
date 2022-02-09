@@ -88,7 +88,8 @@ class _MyAppState extends State<Bonglim> {
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.07;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double fontSize = MediaQuery.of(context).size.height * 0.012;
+    double dbaekFontSize = MediaQuery.of(context).size.height * 0.02;
+    double dbokFontSize = MediaQuery.of(context).size.height * 0.015;
     double titleFontSize = MediaQuery.of(context).size.height * 0.022;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -179,7 +180,7 @@ class _MyAppState extends State<Bonglim> {
                               ),
                               Text(result[0],
                                   style: TextStyle(
-                                    fontSize: fontSize,)),
+                                    fontSize: dbaekFontSize,)),
                             ],
                           )
                       ),
@@ -212,7 +213,7 @@ class _MyAppState extends State<Bonglim> {
                               ),
                               Text(result[1],
                                   style: TextStyle(
-                                    fontSize: fontSize,)),
+                                    fontSize: dbaekFontSize,)),
                             ],
                           )
                       ),
@@ -276,7 +277,7 @@ class _MyAppState extends State<Bonglim> {
                                   ),
                                   Text(result[2],
                                       style: TextStyle(
-                                        fontSize: fontSize,)),
+                                        fontSize: dbokFontSize,)),
                                 ],
                               )
                           ),
@@ -309,7 +310,7 @@ class _MyAppState extends State<Bonglim> {
                                   ),
                                   Text(result[4],
                                       style: TextStyle(
-                                        fontSize: fontSize,)),
+                                        fontSize: dbokFontSize,)),
                                 ],
                               )
                           ),
@@ -344,7 +345,7 @@ class _MyAppState extends State<Bonglim> {
                               ),
                               Text(result[3],
                                   style: TextStyle(
-                                    fontSize: fontSize,)),
+                                    fontSize: dbokFontSize,)),
                             ],
                           )
                       ),

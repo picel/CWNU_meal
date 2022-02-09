@@ -56,7 +56,7 @@ class _MyAppState extends State<BonglimDBaek> {
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
     double boxHeight = MediaQuery.of(context).size.height * 0.33;
-    double fontSize = MediaQuery.of(context).size.height * 0.015;
+    double fontSize = MediaQuery.of(context).size.height * 0.022;
     double titleFontSize = MediaQuery.of(context).size.height * 0.022;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
