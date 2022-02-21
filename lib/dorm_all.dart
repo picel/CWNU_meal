@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'main.dart';
 
 void main() => runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -55,9 +55,9 @@ class _MyAppState extends State<dorm_all> {
   @override
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
-    double boxHeight = MediaQuery.of(context).size.height * 0.23;
-    double fontSize = MediaQuery.of(context).size.height * 0.02;
-    double titleFontSize = MediaQuery.of(context).size.height * 0.03;
+    double boxHeight = MediaQuery.of(context).size.height * 0.2;
+    double fontSize = MediaQuery.of(context).size.height * 0.015;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.022;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -83,6 +83,10 @@ class _MyAppState extends State<dorm_all> {
                   });
                   fetchData();
                 },
+              ),
+              IconButton(
+                  onPressed: _launchURL,
+                  icon: const Icon(Icons.public)
               )
             ],
             bottom: const TabBar(
@@ -127,7 +131,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침",
+                              Text("아침 (07:30 ~ 9:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -160,7 +164,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 13:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -193,7 +197,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:30 ~ 19:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -237,7 +241,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침",
+                              Text("아침 (07:30 ~ 9:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -270,7 +274,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 13:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -303,7 +307,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:30 ~ 19:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -347,7 +351,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침",
+                              Text("아침 (07:30 ~ 9:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -380,7 +384,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 13:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -413,7 +417,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:30 ~ 19:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -457,7 +461,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침",
+                              Text("아침 (07:30 ~ 9:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -490,7 +494,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 13:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -523,7 +527,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:30 ~ 19:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -567,7 +571,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침",
+                              Text("아침 (07:30 ~ 9:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -600,7 +604,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 13:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -633,7 +637,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:30 ~ 19:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -710,7 +714,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:00 ~ 13:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -743,7 +747,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:30 ~ 19:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -820,7 +824,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:00 ~ 13:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -853,7 +857,7 @@ class _MyAppState extends State<dorm_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:30 ~ 19:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -875,5 +879,14 @@ class _MyAppState extends State<dorm_all> {
         ),
       ),
     );
+  }
+}
+
+_launchURL() async {
+  const url = 'https://www.changwon.ac.kr/dorm/na/ntt/selectNttList.do?mi=10079&bbsId=2918';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

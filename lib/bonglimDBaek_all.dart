@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'main.dart';
 
 void main() => runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -55,8 +55,8 @@ class _MyAppState extends State<BonglimDBaek> {
   @override
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
-    double boxHeight = MediaQuery.of(context).size.height * 0.33;
-    double fontSize = MediaQuery.of(context).size.height * 0.022;
+    double boxHeight = MediaQuery.of(context).size.height * 0.3;
+    double fontSize = MediaQuery.of(context).size.height * 0.02;
     double titleFontSize = MediaQuery.of(context).size.height * 0.022;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -83,6 +83,10 @@ class _MyAppState extends State<BonglimDBaek> {
                   });
                   fetchData();
                 },
+              ),
+              IconButton(
+                  onPressed: _launchURL,
+                  icon: const Icon(Icons.public)
               )
             ],
             bottom: const TabBar(
@@ -125,7 +129,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 14:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -158,7 +162,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:00 ~ 18:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -202,7 +206,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 14:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -235,7 +239,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:00 ~ 18:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -279,7 +283,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 14:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -312,7 +316,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:00 ~ 18:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -356,7 +360,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 14:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -389,7 +393,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:00 ~ 18:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -433,7 +437,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 (11:30 ~ 14:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -466,7 +470,7 @@ class _MyAppState extends State<BonglimDBaek> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:00 ~ 18:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -488,5 +492,14 @@ class _MyAppState extends State<BonglimDBaek> {
         ),
       ),
     );
+  }
+}
+
+_launchURL() async {
+  const url = 'https://www.changwon.ac.kr/kor/di/diView/dietView.do?mi=10198&kind=B';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'dorm_all.dart';
 
@@ -22,8 +23,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List result = List.filled(21, '', growable: false);
+  List result = List.filled(22, '', growable: false);
   bool isLoading = false;
+  String DOW = "";
+  String lunchTime = "(11:30 ~ 13:00)";
 
   void fetchData() async {
     try {
@@ -39,24 +42,33 @@ class _MyAppState extends State<MyApp> {
         switch(today) {
           case 'Mon':
             i = 0;
+            DOW = "월요일";
             break;
           case 'Tue':
             i = 1;
+            DOW = "화요일";
             break;
           case 'Wed':
             i = 2;
+            DOW = "수요일";
             break;
           case 'Thu':
             i = 3;
+            DOW = "목요일";
             break;
           case 'Fri':
             i = 4;
+            DOW = "금요일";
             break;
           case 'Sat':
             i = 5;
+            DOW = "토요일";
+            lunchTime = "(11:00 ~ 13:00)";
             break;
           case 'Sun':
             i = 6;
+            DOW = "일요일";
+            lunchTime = "(11:00 ~ 13:00)";
             break;
         }
         int k = 0;
@@ -64,6 +76,7 @@ class _MyAppState extends State<MyApp> {
           result[k] = dataset[i.toString()][j];
           k++;
         }
+        result[21] = dataset["7"];
         isLoading = false;
       });
     } catch (e) {
@@ -87,7 +100,7 @@ class _MyAppState extends State<MyApp> {
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.07;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double fontSize = MediaQuery.of(context).size.height * 0.016;
+    double fontSize = MediaQuery.of(context).size.height * 0.015;
     double titleFontSize = MediaQuery.of(context).size.height * 0.022;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -96,7 +109,7 @@ class _MyAppState extends State<MyApp> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xff153c85),
-            title: const Text('오늘의 기숙사 식단'),
+            title: Text('$DOW의 기숙사 식단'),
             centerTitle: true,
             actions: [
               IconButton(
@@ -107,6 +120,10 @@ class _MyAppState extends State<MyApp> {
                   });
                   fetchData();
                 },
+              ),
+              IconButton(
+                  onPressed: _launchURL,
+                  icon: const Icon(Icons.public)
               )
             ],
           ),
@@ -169,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침",
+                              Text("아침 (07:30 ~ 9:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -202,7 +219,7 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심",
+                              Text("점심 $lunchTime",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -235,7 +252,7 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁",
+                              Text("저녁 (17:30 ~ 19:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -248,6 +265,12 @@ class _MyAppState extends State<MyApp> {
                             ],
                           )
                       ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01
+                      ),
+                      Container(
+                          child: Text(result[21])
+                      )
                     ],
                   ),
                 ],
@@ -257,5 +280,14 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+}
+
+_launchURL() async {
+  const url = 'https://www.changwon.ac.kr/dorm/na/ntt/selectNttList.do?mi=10079&bbsId=2918';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
