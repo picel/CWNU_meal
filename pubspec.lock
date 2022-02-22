@@ -260,7 +260,7 @@ packages:
     source: hosted
     version: "6.0.15"
   url_launcher_ios:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: url_launcher_ios
       url: "https://pub.dartlang.org"
