@@ -6,9 +6,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
-void main() => runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: BonglimDBok())
+void main() => runApp(
+    const MaterialApp(
+        title: "창대학식",
+        debugShowCheckedModeBanner: false,
+        home: BonglimDBok())
 );
 
 class BonglimDBok extends StatefulWidget {
@@ -60,7 +62,7 @@ class _MyAppState extends State<BonglimDBok> {
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.07;
     double fontSize = MediaQuery.of(context).size.height * 0.015;
-    double titleFontSize = MediaQuery.of(context).size.height * 0.022;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.021;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -103,7 +105,7 @@ class _MyAppState extends State<BonglimDBok> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(5.0),
             child: TabBarView(children: [
               Column(
               mainAxisAlignment: MainAxisAlignment.center,

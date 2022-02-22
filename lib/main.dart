@@ -7,12 +7,17 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'dorm_all.dart';
 
-void main() => runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MyApp())
+void main() => runApp(
+    MaterialApp(
+        title: "창대학식",
+        debugShowCheckedModeBanner: false,
+        home: MyApp(),
+        theme: ThemeData(
+          primaryColor: const Color(0xff153c85),
+        )
+    )
 );
 
 class MyApp extends StatefulWidget {
@@ -96,12 +101,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
-    double boxHeight = MediaQuery.of(context).size.height * 0.2;
+    double boxHeight = MediaQuery.of(context).size.height * 0.21;
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
-    double buttonHei = MediaQuery.of(context).size.height * 0.07;
+    double buttonHei = MediaQuery.of(context).size.height * 0.075;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
     double fontSize = MediaQuery.of(context).size.height * 0.015;
-    double titleFontSize = MediaQuery.of(context).size.height * 0.022;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.02;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -139,7 +144,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(5.0),
             child: TabBarView(children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -269,7 +274,11 @@ class _MyAppState extends State<MyApp> {
                           height: MediaQuery.of(context).size.height * 0.01
                       ),
                       Container(
-                          child: Text(result[21])
+                          child: Text(result[21],
+                            style: TextStyle(
+                              fontSize: fontSize,
+                            )
+                          )
                       )
                     ],
                   ),

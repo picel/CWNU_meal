@@ -1,11 +1,11 @@
 {
-    "name": "untitled",
-    "short_name": "untitled",
+    "name": "창대학식",
+    "short_name": "cwnumeal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "창원대 학식 정보 앱",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

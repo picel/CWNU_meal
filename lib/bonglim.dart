@@ -11,9 +11,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'bonglimDBaek_all.dart';
 import 'bonglimDBok_all.dart';
 
-void main() => runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Bonglim())
+void main() => runApp(
+    const MaterialApp(
+        title: "창대학식",
+        debugShowCheckedModeBanner: false,
+        home: Bonglim())
 );
 
 class Bonglim extends StatefulWidget {
@@ -91,11 +93,11 @@ class _MyAppState extends State<Bonglim> {
     double halfBoxWidth = MediaQuery.of(context).size.width * 0.33;
     double boxHeight = MediaQuery.of(context).size.height * 0.3;
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
-    double buttonHei = MediaQuery.of(context).size.height * 0.07;
+    double buttonHei = MediaQuery.of(context).size.height * 0.075;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double dbaekFontSize = MediaQuery.of(context).size.height * 0.02;
+    double dbaekFontSize = MediaQuery.of(context).size.height * 0.018;
     double dbokFontSize = MediaQuery.of(context).size.height * 0.015;
-    double titleFontSize = MediaQuery.of(context).size.height * 0.022;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.021;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -134,7 +136,7 @@ class _MyAppState extends State<Bonglim> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(5.0),
             child: TabBarView(children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -230,7 +232,11 @@ class _MyAppState extends State<Bonglim> {
                           height: MediaQuery.of(context).size.height * 0.01
                       ),
                       Container(
-                        child: Text(result[5])
+                        child: Text(result[5],
+                            style: TextStyle(
+                              fontSize: dbaekFontSize,
+                            )
+                        )
                       )
                     ],
                   ),
@@ -368,7 +374,11 @@ class _MyAppState extends State<Bonglim> {
                           height: MediaQuery.of(context).size.height * 0.01
                       ),
                       Container(
-                          child: Text(result[5])
+                          child: Text(result[5],
+                              style: TextStyle(
+                                fontSize: dbokFontSize,
+                              )
+                          )
                       )
                     ],
                   )
