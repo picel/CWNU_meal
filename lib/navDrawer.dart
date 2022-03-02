@@ -1,3 +1,4 @@
+import 'package:cwnumeal/sarim.dart';
 import 'package:flutter/material.dart';
 
 import 'bonglim.dart';
@@ -12,7 +13,7 @@ class navDrawer extends StatelessWidget {
         child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
+              DrawerHeader(
                   decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage("images/banner.png"),
                     fit: BoxFit.cover)
@@ -32,6 +33,14 @@ class navDrawer extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context, PageRouteBuilder(pageBuilder: (_, __, ___) => Bonglim()));
+                },
+              ),
+              ListTile(
+                title: const Text('사림관'),
+                onTap: (){
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                      context, PageRouteBuilder(pageBuilder: (_, __, ___) => Sarim()));
                 },
               )
             ]

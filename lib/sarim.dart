@@ -1,41 +1,37 @@
 import 'dart:convert';
 
 import 'package:cwnumeal/navDrawer.dart';
+import 'package:cwnumeal/sarim_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dorm_all.dart';
 
 void main() => runApp(
-    MaterialApp(
+    const MaterialApp(
         title: "창대학식",
         debugShowCheckedModeBanner: false,
-        home: MyApp(),
-        theme: ThemeData(
-          primaryColor: const Color(0xff153c85),
-        )
-    )
+        home: Sarim())
 );
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Sarim extends StatefulWidget {
+  const Sarim({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  List result = List.filled(22, '', growable: false);
-  bool isLoading = false;
+class _MyAppState extends State<Sarim> {
+  List result = List.filled(5, '', growable: false);
   String DOW = "오늘";
-  String lunchTime = "(11:30 ~ 13:00)";
+  int i = 0;
+  bool isLoading = false;
 
   void fetchData() async {
     try {
-      http.Response response = await http.get(Uri.parse('https://MiscellaneousFiles.b-cdn.net/dorm.json'));
+      http.Response response = await http.get(Uri.parse('https://MiscellaneousFiles.b-cdn.net/sarim.json'));
       String jsonData = utf8.decode(response.bodyBytes);
       var dataset = jsonDecode(jsonData);
 
@@ -43,7 +39,6 @@ class _MyAppState extends State<MyApp> {
       String today = DateFormat('E').format(date);
 
       setState(() {
-        int i = 0;
         switch(today) {
           case 'Mon':
             i = 0;
@@ -65,23 +60,15 @@ class _MyAppState extends State<MyApp> {
             i = 4;
             DOW = "금요일";
             break;
-          case 'Sat':
-            i = 5;
-            DOW = "토요일";
-            lunchTime = "(11:00 ~ 13:00)";
-            break;
-          case 'Sun':
-            i = 6;
-            DOW = "일요일";
-            lunchTime = "(11:00 ~ 13:00)";
-            break;
         }
-        int k = 0;
-        for(int j = 0; j < 3; j++){
-          result[k] = dataset[i.toString()][j];
-          k++;
+        if (DOW == "주말"){
+          result = List.filled(5, '주말은 문 닫아용', growable: false);
+        } else{
+          for(int j = 0; j < 4; j++){
+            result[j] = dataset[i.toString()][j];
+          }
         }
-        result[21] = dataset["7"];
+        result[4] = dataset["5"];
         isLoading = false;
       });
     } catch (e) {
@@ -101,12 +88,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
-    double boxHeight = MediaQuery.of(context).size.height * 0.21;
+    double boxHeight = MediaQuery.of(context).size.height * 0.15;
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.075;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double fontSize = MediaQuery.of(context).size.height * 0.015;
-    double titleFontSize = MediaQuery.of(context).size.height * 0.02;
+    double fontSize = MediaQuery.of(context).size.height * 0.017;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.021;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -114,7 +101,7 @@ class _MyAppState extends State<MyApp> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xff153c85),
-            title: Text('$DOW의 기숙사 식단'),
+            title: Text('$DOW의 사림관 식단'),
             centerTitle: true,
             actions: [
               IconButton(
@@ -139,7 +126,7 @@ class _MyAppState extends State<MyApp> {
               unselectedLabelColor: Colors.grey,
               labelColor: Color(0xff153c85),
               tabs: [
-                Tab(child: Text("기숙사"))
+                Tab(child: Text("사림관")),
               ],
             ),
           ),
@@ -168,9 +155,8 @@ class _MyAppState extends State<MyApp> {
                               ),),
                             onPressed: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const dorm_all()),
-                              );
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const sarim_all()));
                             },
                           )
                       ),
@@ -191,7 +177,7 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침 (07:30 ~ 9:00)",
+                              Text("한식 (11:30 ~ 14:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -224,7 +210,7 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심 $lunchTime",
+                              Text("양식 (11:30 ~ 14:00)",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -257,7 +243,7 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁 (17:30 ~ 19:00)",
+                              Text("정식",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
@@ -271,17 +257,50 @@ class _MyAppState extends State<MyApp> {
                           )
                       ),
                       SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: const EdgeInsets.all(20),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("분식 (11:30 ~ 14:00)",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[3],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
                           height: MediaQuery.of(context).size.height * 0.01
                       ),
                       Container(
-                          child: Text(result[21],
-                            style: TextStyle(
-                              fontSize: fontSize,
-                            )
+                          child: Text(result[4],
+                              style: TextStyle(
+                                fontSize: fontSize,
+                              )
                           )
                       )
                     ],
-                  ),
+                  )
                 ],
               ),
             ]),
@@ -293,7 +312,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 _launchURL() async {
-  const url = 'https://www.changwon.ac.kr/dorm/na/ntt/selectNttList.do?mi=10079&bbsId=2918';
+  const url = 'http://changwon.ac.kr/kor/di/diView/dietView.do?mi=10199&kind=S';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
