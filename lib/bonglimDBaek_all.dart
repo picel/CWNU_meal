@@ -58,8 +58,9 @@ class _MyAppState extends State<BonglimDBaek> {
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
     double boxHeight = MediaQuery.of(context).size.height * 0.33;
-    double fontSize = MediaQuery.of(context).size.height * 0.02;
-    double titleFontSize = MediaQuery.of(context).size.height * 0.022;
+    double fontSize = MediaQuery.of(context).size.height * 0.023;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.024;
+    double boxpadding = MediaQuery.of(context).size.height * 0.02;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -102,7 +103,7 @@ class _MyAppState extends State<BonglimDBaek> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(boxpadding/2),
             child: TabBarView(children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +118,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -150,7 +151,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -194,7 +195,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -227,7 +228,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -271,7 +272,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -304,7 +305,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -348,7 +349,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -381,7 +382,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -425,7 +426,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -458,7 +459,7 @@ class _MyAppState extends State<BonglimDBaek> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,

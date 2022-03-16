@@ -95,9 +95,10 @@ class _MyAppState extends State<Bonglim> {
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.075;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double dbaekFontSize = MediaQuery.of(context).size.height * 0.018;
+    double dbaekFontSize = MediaQuery.of(context).size.height * 0.02;
     double dbokFontSize = MediaQuery.of(context).size.height * 0.015;
-    double titleFontSize = MediaQuery.of(context).size.height * 0.021;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.022;
+    double boxpadding = MediaQuery.of(context).size.height * 0.02;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -136,7 +137,7 @@ class _MyAppState extends State<Bonglim> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
             child: TabBarView(children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -168,7 +169,7 @@ class _MyAppState extends State<Bonglim> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -201,7 +202,7 @@ class _MyAppState extends State<Bonglim> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -275,7 +276,7 @@ class _MyAppState extends State<Bonglim> {
                           Container(
                               height: boxHeight,
                               width: halfBoxWidth,
-                              padding: const EdgeInsets.all(20),
+                              padding: EdgeInsets.all(boxpadding),
                               alignment: Alignment.centerLeft,
                               decoration: const BoxDecoration(
                                   color: Colors.white,
@@ -308,7 +309,7 @@ class _MyAppState extends State<Bonglim> {
                           Container(
                               height: boxHeight,
                               width: halfBoxWidth,
-                              padding: const EdgeInsets.all(20),
+                              padding: EdgeInsets.all(boxpadding),
                               alignment: Alignment.centerLeft,
                               decoration: const BoxDecoration(
                                   color: Colors.white,
@@ -343,7 +344,7 @@ class _MyAppState extends State<Bonglim> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,

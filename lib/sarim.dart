@@ -88,12 +88,13 @@ class _MyAppState extends State<Sarim> {
   @override
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
-    double boxHeight = MediaQuery.of(context).size.height * 0.15;
+    double boxHeight = MediaQuery.of(context).size.height * 0.14;
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.075;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double fontSize = MediaQuery.of(context).size.height * 0.017;
+    double fontSize = MediaQuery.of(context).size.height * 0.02;
     double titleFontSize = MediaQuery.of(context).size.height * 0.021;
+    double boxpadding = MediaQuery.of(context).size.height * 0.02;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -131,7 +132,7 @@ class _MyAppState extends State<Sarim> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
             child: TabBarView(children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -163,40 +164,7 @@ class _MyAppState extends State<Sarim> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
-                          alignment: Alignment.centerLeft,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2.0,
-                                    offset: Offset(0, 1))
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("한식 (11:30 ~ 14:00)",
-                                  style: TextStyle(
-                                      fontSize: titleFontSize,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[0],
-                                  style: TextStyle(
-                                    fontSize: fontSize,)),
-                            ],
-                          )
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Container(
-                          height: boxHeight,
-                          width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -217,6 +185,39 @@ class _MyAppState extends State<Sarim> {
                               SizedBox(
                                   height: MediaQuery.of(context).size.height * 0.01
                               ),
+                              Text(result[0],
+                                  style: TextStyle(
+                                    fontSize: fontSize,)),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      Container(
+                          height: boxHeight,
+                          width: boxWidth,
+                          padding: EdgeInsets.all(boxpadding),
+                          alignment: Alignment.centerLeft,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    offset: Offset(0, 1))
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("한식 (11:30 ~ 14:00)",
+                                  style: TextStyle(
+                                      fontSize: titleFontSize,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
                               Text(result[1],
                                   style: TextStyle(
                                     fontSize: fontSize,)),
@@ -229,7 +230,7 @@ class _MyAppState extends State<Sarim> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -262,7 +263,7 @@ class _MyAppState extends State<Sarim> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,

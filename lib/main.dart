@@ -31,7 +31,9 @@ class _MyAppState extends State<MyApp> {
   List result = List.filled(22, '', growable: false);
   bool isLoading = false;
   String DOW = "오늘";
-  String lunchTime = "(11:30 ~ 13:00)";
+  String lcTime = "(11:30 ~ 13:30)";
+  String bfTime = "(07:30 ~ 9:30)";
+  String dnTime = "(17:00 ~ 19:00)";
 
   void fetchData() async {
     try {
@@ -68,17 +70,16 @@ class _MyAppState extends State<MyApp> {
           case 'Sat':
             i = 5;
             DOW = "토요일";
-            lunchTime = "(11:00 ~ 13:00)";
             break;
           case 'Sun':
             i = 6;
             DOW = "일요일";
-            lunchTime = "(11:00 ~ 13:00)";
             break;
         }
         int k = 0;
         for(int j = 0; j < 3; j++){
-          result[k] = dataset[i.toString()][j];
+          if(dataset[i.toString()][j] == '') result[k] = '영업 중단';
+          else result[k] = dataset[i.toString()][j];
           k++;
         }
         result[21] = dataset["7"];
@@ -101,12 +102,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     double boxWidth = MediaQuery.of(context).size.width * 0.7;
-    double boxHeight = MediaQuery.of(context).size.height * 0.21;
+    double boxHeight = MediaQuery.of(context).size.height * 0.2;
     double buttonWid = MediaQuery.of(context).size.width * 0.8;
     double buttonHei = MediaQuery.of(context).size.height * 0.075;
     double btnFont = MediaQuery.of(context).size.height * 0.02;
-    double fontSize = MediaQuery.of(context).size.height * 0.015;
+    double fontSize = MediaQuery.of(context).size.height * 0.017;
     double titleFontSize = MediaQuery.of(context).size.height * 0.02;
+    double boxpadding = MediaQuery.of(context).size.height * 0.02;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -144,7 +146,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
             child: TabBarView(children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +179,7 @@ class _MyAppState extends State<MyApp> {
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -191,12 +193,12 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("아침 (07:30 ~ 9:00)",
+                              Text("아침 $bfTime",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
+                                  height: MediaQuery.of(context).size.height * 0.005
                               ),
                               Text(result[0],
                                   style: TextStyle(
@@ -205,12 +207,12 @@ class _MyAppState extends State<MyApp> {
                           )
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
+                        height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -224,12 +226,12 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("점심 $lunchTime",
+                              Text("점심 $lcTime",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
+                                  height: MediaQuery.of(context).size.height * 0.005
                               ),
                               Text(result[1],
                                   style: TextStyle(
@@ -238,12 +240,12 @@ class _MyAppState extends State<MyApp> {
                           )
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
+                        height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       Container(
                           height: boxHeight,
                           width: boxWidth,
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(boxpadding),
                           alignment: Alignment.centerLeft,
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -257,12 +259,12 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("저녁 (17:30 ~ 19:00)",
+                              Text("저녁 $dnTime",
                                   style: TextStyle(
                                       fontSize: titleFontSize,
                                       fontWeight: FontWeight.bold)),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
+                                  height: MediaQuery.of(context).size.height * 0.005
                               ),
                               Text(result[2],
                                   style: TextStyle(
@@ -271,7 +273,7 @@ class _MyAppState extends State<MyApp> {
                           )
                       ),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01
+                          height: MediaQuery.of(context).size.height * 0.005
                       ),
                       Container(
                           child: Text(result[21],
