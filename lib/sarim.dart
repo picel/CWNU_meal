@@ -1,19 +1,25 @@
 import 'dart:convert';
 
-import 'package:cwnumeal/navDrawer.dart';
-import 'package:cwnumeal/sarim_all.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
+import 'globals.dart' as globals;
+
 void main() => runApp(
-    const MaterialApp(
-        title: "창대학식",
-        debugShowCheckedModeBanner: false,
-        home: Sarim())
+    const NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      title: 'neumorphic test',
+      themeMode: ThemeMode.light,
+      theme: NeumorphicThemeData(
+        baseColor: Color(0xffe5edf6),
+        lightSource: LightSource.topLeft,
+      ),
+      home: Sarim(),
+    )
 );
 
 class Sarim extends StatefulWidget {
@@ -23,61 +29,16 @@ class Sarim extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<Sarim> {
-  List result = List.filled(5, '', growable: false);
-  String DOW = "오늘";
-  int i = 0;
+class _MyAppState extends State<Sarim> with WidgetsBindingObserver {
+  List result = List.filled(20, '', growable: false);
   bool isLoading = false;
+  int dayOfWeek = globals.dayOfWeek;
 
-  void fetchData() async {
-    try {
-      http.Response response = await http.get(Uri.parse('https://MiscellaneousFiles.b-cdn.net/sarim.json'));
-      String jsonData = utf8.decode(response.bodyBytes);
-      var dataset = jsonDecode(jsonData);
-
-      var date = DateTime.now();
-      String today = DateFormat('E').format(date);
-
-      setState(() {
-        switch(today) {
-          case 'Mon':
-            i = 0;
-            DOW = "월요일";
-            break;
-          case 'Tue':
-            i = 1;
-            DOW = "화요일";
-            break;
-          case 'Wed':
-            i = 2;
-            DOW = "수요일";
-            break;
-          case 'Thu':
-            i = 3;
-            DOW = "목요일";
-            break;
-          case 'Fri':
-            i = 4;
-            DOW = "금요일";
-            break;
-        }
-        if (DOW == "주말"){
-          result = List.filled(5, '주말은 문 닫아용', growable: false);
-        } else{
-          for(int j = 0; j < 4; j++){
-            result[j] = dataset[i.toString()][j];
-          }
-        }
-        result[4] = dataset["5"];
-        isLoading = false;
-      });
-    } catch (e) {
-      print('error!');
-    }
-  }
+  String time = "(11:30 ~ 14:00)";
 
   @override
   void initState() {
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
     setState(() {
       isLoading = true;
@@ -86,226 +47,295 @@ class _MyAppState extends State<Sarim> {
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(() {
+        isLoading = true;
+      });
+      fetchData();
+    }
+  }
+
+  void fetchData() async {
+    try {
+      http.Response response = await http.get(Uri.parse('https://MiscellaneousFiles.b-cdn.net/sarim.json'));
+      String jsonData = utf8.decode(response.bodyBytes);
+      var dataset = jsonDecode(jsonData);
+      setState(() {
+        int k = 0;
+        for(int i = 0; i < 5; i++){
+          for(int j = 0; j < 4; j++){
+            result[k] = dataset[i.toString()][j];
+            k++;
+          }
+        }
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        for (int i = 0; i <= 19; i++) result[i] = '네트워크 에러';
+        isLoading = false;
+      });
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double boxWidth = MediaQuery.of(context).size.width * 0.7;
-    double boxHeight = MediaQuery.of(context).size.height * 0.14;
-    double buttonWid = MediaQuery.of(context).size.width * 0.8;
-    double buttonHei = MediaQuery.of(context).size.height * 0.075;
-    double btnFont = MediaQuery.of(context).size.height * 0.02;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.024;
     double fontSize = MediaQuery.of(context).size.height * 0.02;
-    double titleFontSize = MediaQuery.of(context).size.height * 0.021;
-    double boxpadding = MediaQuery.of(context).size.height * 0.02;
+    double boxWidth = MediaQuery.of(context).size.width * 0.55;
+    double boxmargin = MediaQuery.of(context).size.height * 0.01;
+    double boxpadding = MediaQuery.of(context).size.height * 0.022;
+    Color mainColor = const Color(0xff455a64);
+    if(dayOfWeek >= 5) dayOfWeek = 0;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
-        length: 1,
+        initialIndex: dayOfWeek,
+        length: 5,
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xff153c85),
-            title: Text('$DOW의 사림관 식단'),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.refresh_rounded),
-                onPressed: () async {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  fetchData();
-                },
+            backgroundColor: NeumorphicTheme.baseColor(context),
+            floatingActionButton: NeumorphicFloatingActionButton(
+              mini: true,
+              child: Icon(Icons.public,
+                size: 30,
+                color: mainColor,
               ),
-              IconButton(
-                  onPressed: _launchURL,
-                  icon: const Icon(Icons.public)
-              )
-            ],
-          ),
-          drawer: navDrawer(),
-          bottomNavigationBar: SafeArea(
-            child: const TabBar(
-              indicatorColor: Colors.transparent,
-              unselectedLabelColor: Colors.grey,
-              labelColor: Color(0xff153c85),
-              tabs: [
-                Tab(child: Text("사림관")),
+              onPressed: _launchURL,
+            ),
+            appBar: NeumorphicAppBar(
+              title: Text('사림관',
+                style: GoogleFonts.jua(
+                  textStyle: TextStyle(
+                      fontSize: 40,
+                      color: mainColor
+                  ),
+                ),
+              ),
+              centerTitle: true,
+              leading: NeumorphicButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: const NeumorphicStyle(
+                  boxShape: NeumorphicBoxShape.circle(),
+                  depth: 10,
+                ),
+                child: Icon(
+                  Icons.arrow_back_ios_rounded,
+                  color: mainColor,
+                  size: 30,
+                ),
+              ),
+              actions: [
+                NeumorphicButton(
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    fetchData();
+                  },
+                  style: const NeumorphicStyle(
+                    boxShape: NeumorphicBoxShape.circle(),
+                    depth: 10,
+                  ),
+                  child: Icon(
+                    Icons.refresh_rounded,
+                    color: mainColor,
+                    size: 30,
+                  ),
+                ),
               ],
             ),
-          ),
-          body: Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-            child: TabBarView(children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  isLoading
-                      ? SpinKitThreeBounce(
-                    color: const Color(0xff153c85),
-                    size: 30.0,
-                  )
-                      : Column(
-                    children: [
-                      Container(
-                          height: buttonHei,
-                          width: buttonWid,
-                          alignment: Alignment.topRight,
-                          child: CupertinoButton(
-                            child: Text('전체 식단 보기',
-                              style: TextStyle(
-                                color: const Color(0xff153c85),
-                                fontSize: btnFont,
-                              ),),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const sarim_all()));
-                            },
-                          )
-                      ),
-                      Container(
-                          height: boxHeight,
-                          width: boxWidth,
-                          padding: EdgeInsets.all(boxpadding),
-                          alignment: Alignment.centerLeft,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2.0,
-                                    offset: Offset(0, 1))
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("양식 (11:30 ~ 14:00)",
-                                  style: TextStyle(
-                                      fontSize: titleFontSize,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[0],
-                                  style: TextStyle(
-                                    fontSize: fontSize,)),
-                            ],
-                          )
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Container(
-                          height: boxHeight,
-                          width: boxWidth,
-                          padding: EdgeInsets.all(boxpadding),
-                          alignment: Alignment.centerLeft,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2.0,
-                                    offset: Offset(0, 1))
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("한식 (11:30 ~ 14:00)",
-                                  style: TextStyle(
-                                      fontSize: titleFontSize,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[1],
-                                  style: TextStyle(
-                                    fontSize: fontSize,)),
-                            ],
-                          )
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Container(
-                          height: boxHeight,
-                          width: boxWidth,
-                          padding: EdgeInsets.all(boxpadding),
-                          alignment: Alignment.centerLeft,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2.0,
-                                    offset: Offset(0, 1))
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("정식",
-                                  style: TextStyle(
-                                      fontSize: titleFontSize,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[2],
-                                  style: TextStyle(
-                                    fontSize: fontSize,)),
-                            ],
-                          )
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Container(
-                          height: boxHeight,
-                          width: boxWidth,
-                          padding: EdgeInsets.all(boxpadding),
-                          alignment: Alignment.centerLeft,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2.0,
-                                    offset: Offset(0, 1))
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("분식 (11:30 ~ 14:00)",
-                                  style: TextStyle(
-                                      fontSize: titleFontSize,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[3],
-                                  style: TextStyle(
-                                    fontSize: fontSize,)),
-                            ],
-                          )
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01
-                      ),
-                      Container(
-                          child: Text(result[4],
-                              style: TextStyle(
-                                fontSize: fontSize,
-                              )
-                          )
-                      )
-                    ],
-                  )
+            bottomNavigationBar: SafeArea(
+              child: TabBar(
+                unselectedLabelColor: Colors.grey[400],
+                indicatorColor: Colors.transparent,
+                labelColor: mainColor,
+                tabs: const [
+                  Tab(child: Text("월")),
+                  Tab(child: Text("화")),
+                  Tab(child: Text("수")),
+                  Tab(child: Text("목")),
+                  Tab(child: Text("금")),
                 ],
               ),
-            ]),
-          ),
+            ),
+            body: TabBarView(
+                children: List<Widget>.generate(5, (idx) { // 위젯 생성 구문
+                  return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        isLoading ? SpinKitSquareCircle(
+                          color: mainColor,
+                          size: 30.0,
+                        ) : Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Neumorphic(
+                              padding: EdgeInsets.all(boxpadding),
+                              margin: EdgeInsets.all(boxmargin),
+                              style: NeumorphicStyle(
+                                shape: NeumorphicShape.flat,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                                depth: -3,
+                              ),
+                              child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("양식 $time",
+                                        style: GoogleFonts.jua(
+                                          textStyle: TextStyle(
+                                              fontSize: titleFontSize,
+                                              color: mainColor
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: MediaQuery.of(context).size.height * 0.01
+                                      ),
+                                      Text(result[idx * 4],
+                                        style: GoogleFonts.ibmPlexSansKr(
+                                          textStyle: TextStyle(
+                                            fontSize: fontSize,
+                                            color: mainColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                              ),
+                            ),
+                            Neumorphic(
+                              padding: EdgeInsets.all(boxpadding),
+                              margin: EdgeInsets.all(boxmargin),
+                              style: NeumorphicStyle(
+                                shape: NeumorphicShape.flat,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                                depth: -3,
+                              ),
+                              child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("한식 $time",
+                                        style: GoogleFonts.jua(
+                                          textStyle: TextStyle(
+                                              fontSize: titleFontSize,
+                                              color: mainColor
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: MediaQuery.of(context).size.height * 0.01
+                                      ),
+                                      Text(result[idx * 4 + 1],
+                                        style: GoogleFonts.ibmPlexSansKr(
+                                          textStyle: TextStyle(
+                                            fontSize: fontSize,
+                                            color: mainColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                              ),
+                            ),
+                            Neumorphic(
+                              padding: EdgeInsets.all(boxpadding),
+                              margin: EdgeInsets.all(boxmargin),
+                              style: NeumorphicStyle(
+                                shape: NeumorphicShape.flat,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                                depth: -3,
+                              ),
+                              child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("정식 $time",
+                                        style: GoogleFonts.jua(
+                                          textStyle: TextStyle(
+                                              fontSize: titleFontSize,
+                                              color: mainColor
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: MediaQuery.of(context).size.height * 0.01
+                                      ),
+                                      Text(result[idx * 4 + 2],
+                                        style: GoogleFonts.ibmPlexSansKr(
+                                          textStyle: TextStyle(
+                                            fontSize: fontSize,
+                                            color: mainColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                              ),
+                            ),
+                            Neumorphic(
+                              padding: EdgeInsets.all(boxpadding),
+                              margin: EdgeInsets.all(boxmargin),
+                              style: NeumorphicStyle(
+                                shape: NeumorphicShape.flat,
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                                depth: -3,
+                              ),
+                              child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("분식 $time",
+                                        style: GoogleFonts.jua(
+                                          textStyle: TextStyle(
+                                              fontSize: titleFontSize,
+                                              color: mainColor
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: MediaQuery.of(context).size.height * 0.01
+                                      ),
+                                      Text(result[idx * 4 + 3],
+                                        style: GoogleFonts.ibmPlexSansKr(
+                                          textStyle: TextStyle(
+                                            fontSize: fontSize,
+                                            color: mainColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      ]
+                  );
+                })
+            )
         ),
       ),
     );
