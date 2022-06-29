@@ -24,7 +24,7 @@ void main() => runApp(
       theme: NeumorphicThemeData(
         baseColor: Color(0xffe5edf6),
         lightSource: LightSource.topLeft,
-        defaultTextColor: Colors.blueGrey
+        defaultTextColor: Colors.blueGrey,
       ),
       home: MyHomepage(),
     )
@@ -94,7 +94,7 @@ class _MyAppState extends State<MyHomepage> with WidgetsBindingObserver {
         else if (today == 'Thu') dayOfWeek = 3;
         else if (today == 'Fri') dayOfWeek = 4;
         else if (today == 'Sat') dayOfWeek = 5;
-        else if (today == 'Sum') dayOfWeek = 6;
+        else if (today == 'Sun') dayOfWeek = 6;
 
         int tmr = 0;
 
@@ -124,16 +124,19 @@ class _MyAppState extends State<MyHomepage> with WidgetsBindingObserver {
             bongNow = '(저녁)';
           } else {
             result[0] = dorm[tmr.toString()][0];
-            result[5] = bonglim[tmr.toString()][0];
-            result[6] = bonglim[tmr.toString()][2];
-            for (int j = 0; j < 4; j++) result[j + 1] = sarim[tmr.toString()][j];
+            if (dayOfWeek == 4) {
+              for (int j = 1; j <= 7; j++) result[j] = "주말은 문 닫아용";
+            } else {
+              result[5] = bonglim[tmr.toString()][0];
+              result[6] = bonglim[tmr.toString()][2];
+              for (int j = 0; j < 4; j++) result[j + 1] = sarim[tmr.toString()][j];
+            }
             dormNow = '(내일 아침)';
             bongNow = '(내일 점심)';
             dayOfWeek = tmr;
           }
           result[7] = bonglim[dayOfWeek.toString()][4];
-        }
-        else { //주말
+        } else { //주말
           if (time< 810){ //아점
             result[0] = dorm[dayOfWeek.toString()][1];
             for (int j = 1; j <= 7; j++) result[j] = "주말은 문 닫아용";
@@ -142,7 +145,7 @@ class _MyAppState extends State<MyHomepage> with WidgetsBindingObserver {
             result[0] = dorm[dayOfWeek.toString()][2];
             for (int j = 1; j <= 7; j++) result[j] = "주말은 문 닫아용";
             dormNow = '(저녁)';
-          } else {
+          } else { //저녁 이후
             if (dayOfWeek == 5) { //토요일일때
               result[0] = dorm['6'][1];
               for (int j = 1; j <= 7; j++) result[j] = "주말은 문 닫아용";
@@ -170,13 +173,13 @@ class _MyAppState extends State<MyHomepage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    double titleFontSize = MediaQuery.of(context).size.height * 0.025;
-    double fontSize = MediaQuery.of(context).size.height * 0.018;
-    double dormBoxHeight = MediaQuery.of(context).size.height * 0.28;
-    double sarimBoxHeight = MediaQuery.of(context).size.height * 0.189;
-    double bonglimBoxHeight = MediaQuery.of(context).size.height * 0.342;
+    double titleFontSize = MediaQuery.of(context).size.height * 0.02;
+    double fontSize = MediaQuery.of(context).size.height * 0.0155;
+    double dormBoxHeight = MediaQuery.of(context).size.height * 0.258;
+    double sarimBoxHeight = MediaQuery.of(context).size.height * 0.225;
+    double bonglimBoxHeight = MediaQuery.of(context).size.height * 0.33;
     double boxWidth = MediaQuery.of(context).size.width * 0.6;
-    double boxmargin = MediaQuery.of(context).size.height * 0.013;
+    double boxmargin = MediaQuery.of(context).size.height * 0.012;
     double boxpadding = MediaQuery.of(context).size.height * 0.02;
     double viewportFraction = 0.78;
     Color mainColor = const Color(0xff455a64);
@@ -237,376 +240,376 @@ class _MyAppState extends State<MyHomepage> with WidgetsBindingObserver {
             color: mainColor,
             size: 30.0,
           ) : Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CarouselSlider(
-                options: CarouselOptions(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CarouselSlider(
+                  options: CarouselOptions(
                     enableInfiniteScroll: false,
                     height: dormBoxHeight,
                     viewportFraction: viewportFraction,
-                ),
-                items: [
-                  NeumorphicButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Dorm()),
-                      );
-                    },
-                    padding: EdgeInsets.all(boxpadding),
-                    margin: EdgeInsets.all(boxmargin),
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                  ),
+                  items: [
+                    NeumorphicButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Dorm()),
+                        );
+                      },
+                      padding: EdgeInsets.all(boxpadding),
+                      margin: EdgeInsets.all(boxmargin),
+                      style: NeumorphicStyle(
+                        shape: NeumorphicShape.flat,
+                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                      ),
+                      child: SizedBox(
+                          width: boxWidth,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("기숙사 $dormNow",
+                                style: GoogleFonts.jua(
+                                  textStyle: TextStyle(
+                                      fontSize: titleFontSize,
+                                      color: mainColor
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.01
+                              ),
+                              Text(result[0],
+                                style: GoogleFonts.ibmPlexSansKr(
+                                  textStyle: TextStyle(
+                                    fontSize: fontSize,
+                                    color: mainColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
                     ),
-                    child: SizedBox(
-                        width: boxWidth,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("기숙사 $dormNow",
-                              style: GoogleFonts.jua(
-                                textStyle: TextStyle(
-                                  fontSize: titleFontSize,
-                                  color: mainColor
+                  ],
+                ),
+                CarouselSlider(
+                  options: CarouselOptions(
+                      enableInfiniteScroll: false,
+                      height: sarimBoxHeight,
+                      viewportFraction: viewportFraction
+                  ),
+                  items: [
+                    NeumorphicButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Sarim()),
+                          );
+                        },
+                        padding: EdgeInsets.all(boxpadding),
+                        margin: EdgeInsets.all(boxmargin),
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                        ),
+                        child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("사림관 양식",
+                                  style: GoogleFonts.jua(
+                                    textStyle: TextStyle(
+                                        fontSize: titleFontSize,
+                                        color: mainColor
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.01
-                            ),
-                            Text(result[0],
-                              style: GoogleFonts.ibmPlexSansKr(
-                                textStyle: TextStyle(
-                                  fontSize: fontSize,
-                                  color: mainColor,
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.01
                                 ),
-                              ),
-                            ),
-                          ],
+                                Text(result[1],
+                                  style: GoogleFonts.ibmPlexSansKr(
+                                    textStyle: TextStyle(
+                                      fontSize: fontSize,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
                         )
                     ),
-                  ),
-                ],
-              ),
-              CarouselSlider(
-                options: CarouselOptions(
-                    enableInfiniteScroll: false,
-                    height: sarimBoxHeight,
-                    viewportFraction: viewportFraction
+                    NeumorphicButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Sarim()),
+                          );
+                        },
+                        padding: EdgeInsets.all(boxpadding),
+                        margin: EdgeInsets.all(boxmargin),
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                        ),
+                        child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("사림관 한식",
+                                  style: GoogleFonts.jua(
+                                    textStyle: TextStyle(
+                                        fontSize: titleFontSize,
+                                        color: mainColor
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.01
+                                ),
+                                Text(result[2],
+                                  style: GoogleFonts.ibmPlexSansKr(
+                                    textStyle: TextStyle(
+                                      fontSize: fontSize,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                        )
+                    ),
+                    NeumorphicButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Sarim()),
+                          );
+                        },
+                        padding: EdgeInsets.all(boxpadding),
+                        margin: EdgeInsets.all(boxmargin),
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                        ),
+                        child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("사림관 정식",
+                                  style: GoogleFonts.jua(
+                                    textStyle: TextStyle(
+                                        fontSize: titleFontSize,
+                                        color: mainColor
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.01
+                                ),
+                                Text(result[3],
+                                  style: GoogleFonts.ibmPlexSansKr(
+                                    textStyle: TextStyle(
+                                      fontSize: fontSize,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                        )
+                    ),
+                    NeumorphicButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Sarim()),
+                          );
+                        },
+                        padding: EdgeInsets.all(boxpadding),
+                        margin: EdgeInsets.all(boxmargin),
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                        ),
+                        child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("사림관 분식(라면)",
+                                  style: GoogleFonts.jua(
+                                    textStyle: TextStyle(
+                                        fontSize: titleFontSize,
+                                        color: mainColor
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.01
+                                ),
+                                Text(result[4],
+                                  style: GoogleFonts.ibmPlexSansKr(
+                                    textStyle: TextStyle(
+                                      fontSize: fontSize,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                        )
+                    ),
+                  ],
                 ),
-                items: [
-                  NeumorphicButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Sarim()),
-                        );
-                      },
-                      padding: EdgeInsets.all(boxpadding),
-                      margin: EdgeInsets.all(boxmargin),
-                      style: NeumorphicStyle(
-                        shape: NeumorphicShape.flat,
-                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                      ),
-                      child: SizedBox(
-                          width: boxWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("사림관 양식",
-                                style: GoogleFonts.jua(
-                                  textStyle: TextStyle(
-                                      fontSize: titleFontSize,
-                                      color: mainColor
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[1],
-                                style: GoogleFonts.ibmPlexSansKr(
-                                  textStyle: TextStyle(
-                                    fontSize: fontSize,
-                                    color: mainColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                      )
-                  ),
-                  NeumorphicButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Sarim()),
-                        );
-                      },
-                      padding: EdgeInsets.all(boxpadding),
-                      margin: EdgeInsets.all(boxmargin),
-                      style: NeumorphicStyle(
-                        shape: NeumorphicShape.flat,
-                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                      ),
-                      child: SizedBox(
-                          width: boxWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("사림관 한식",
-                                style: GoogleFonts.jua(
-                                  textStyle: TextStyle(
-                                      fontSize: titleFontSize,
-                                      color: mainColor
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[2],
-                                style: GoogleFonts.ibmPlexSansKr(
-                                  textStyle: TextStyle(
-                                    fontSize: fontSize,
-                                    color: mainColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                      )
-                  ),
-                  NeumorphicButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Sarim()),
-                        );
-                      },
-                      padding: EdgeInsets.all(boxpadding),
-                      margin: EdgeInsets.all(boxmargin),
-                      style: NeumorphicStyle(
-                        shape: NeumorphicShape.flat,
-                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                      ),
-                      child: SizedBox(
-                          width: boxWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("사림관 정식",
-                                style: GoogleFonts.jua(
-                                  textStyle: TextStyle(
-                                      fontSize: titleFontSize,
-                                      color: mainColor
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[3],
-                                style: GoogleFonts.ibmPlexSansKr(
-                                  textStyle: TextStyle(
-                                    fontSize: fontSize,
-                                    color: mainColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                      )
-                  ),
-                  NeumorphicButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Sarim()),
-                        );
-                      },
-                      padding: EdgeInsets.all(boxpadding),
-                      margin: EdgeInsets.all(boxmargin),
-                      style: NeumorphicStyle(
-                        shape: NeumorphicShape.flat,
-                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                      ),
-                      child: SizedBox(
-                          width: boxWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("사림관 분식(라면)",
-                                style: GoogleFonts.jua(
-                                  textStyle: TextStyle(
-                                      fontSize: titleFontSize,
-                                      color: mainColor
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[4],
-                                style: GoogleFonts.ibmPlexSansKr(
-                                  textStyle: TextStyle(
-                                    fontSize: fontSize,
-                                    color: mainColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                      )
-                  ),
-                ],
-              ),
-              CarouselSlider(
-                options: CarouselOptions(
+                CarouselSlider(
+                  options: CarouselOptions(
                     enableInfiniteScroll: false,
                     height: bonglimBoxHeight,
                     viewportFraction: viewportFraction,
+                  ),
+                  items: [
+                    NeumorphicButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const DBaek()),
+                          );
+                        },
+                        padding: EdgeInsets.all(boxpadding),
+                        margin: EdgeInsets.all(boxmargin),
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                        ),
+                        child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("봉림관 동백홀 $bongNow",
+                                  style: GoogleFonts.jua(
+                                    textStyle: TextStyle(
+                                        fontSize: titleFontSize,
+                                        color: mainColor
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.01
+                                ),
+                                Text(result[5],
+                                  style: GoogleFonts.ibmPlexSansKr(
+                                    textStyle: TextStyle(
+                                      fontSize: fontSize,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                        )
+                    ),
+                    NeumorphicButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const DBok()),
+                          );
+                        },
+                        padding: EdgeInsets.all(boxpadding),
+                        margin: EdgeInsets.all(boxmargin),
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                        ),
+                        child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("봉림관 다복솔 $bongNow",
+                                  style: GoogleFonts.jua(
+                                    textStyle: TextStyle(
+                                        fontSize: titleFontSize,
+                                        color: mainColor
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.01
+                                ),
+                                Text(result[6],
+                                  style: GoogleFonts.ibmPlexSansKr(
+                                    textStyle: TextStyle(
+                                      fontSize: fontSize,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                        )
+                    ),
+                    NeumorphicButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const DBok()),
+                          );
+                        },
+                        padding: EdgeInsets.all(boxpadding),
+                        margin: EdgeInsets.all(boxmargin),
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                        ),
+                        child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("봉림관 다복솔 분식 $bongNow",
+                                  style: GoogleFonts.jua(
+                                    textStyle: TextStyle(
+                                        fontSize: titleFontSize,
+                                        color: mainColor
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.01
+                                ),
+                                Text(result[7],
+                                  style: GoogleFonts.ibmPlexSansKr(
+                                    textStyle: TextStyle(
+                                      fontSize: fontSize,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                        )
+                    ),
+                  ],
                 ),
-                items: [
-                  NeumorphicButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const DBaek()),
-                        );
-                      },
-                      padding: EdgeInsets.all(boxpadding),
-                      margin: EdgeInsets.all(boxmargin),
-                      style: NeumorphicStyle(
-                        shape: NeumorphicShape.flat,
-                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                      ),
-                      child: SizedBox(
-                          width: boxWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("봉림관 동백홀 $bongNow",
-                                style: GoogleFonts.jua(
-                                  textStyle: TextStyle(
-                                      fontSize: titleFontSize,
-                                      color: mainColor
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[5],
-                                style: GoogleFonts.ibmPlexSansKr(
-                                  textStyle: TextStyle(
-                                    fontSize: fontSize,
-                                    color: mainColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                      )
-                  ),
-                  NeumorphicButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const DBok()),
-                        );
-                      },
-                      padding: EdgeInsets.all(boxpadding),
-                      margin: EdgeInsets.all(boxmargin),
-                      style: NeumorphicStyle(
-                        shape: NeumorphicShape.flat,
-                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                      ),
-                      child: SizedBox(
-                          width: boxWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("봉림관 다복솔 $bongNow",
-                                style: GoogleFonts.jua(
-                                  textStyle: TextStyle(
-                                      fontSize: titleFontSize,
-                                      color: mainColor
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[6],
-                                style: GoogleFonts.ibmPlexSansKr(
-                                  textStyle: TextStyle(
-                                    fontSize: fontSize,
-                                    color: mainColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                      )
-                  ),
-                  NeumorphicButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const DBok()),
-                        );
-                      },
-                      padding: EdgeInsets.all(boxpadding),
-                      margin: EdgeInsets.all(boxmargin),
-                      style: NeumorphicStyle(
-                        shape: NeumorphicShape.flat,
-                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-                      ),
-                      child: SizedBox(
-                          width: boxWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("봉림관 다복솔 분식 $bongNow",
-                                style: GoogleFonts.jua(
-                                  textStyle: TextStyle(
-                                      fontSize: titleFontSize,
-                                      color: mainColor
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
-                              ),
-                              Text(result[7],
-                                style: GoogleFonts.ibmPlexSansKr(
-                                  textStyle: TextStyle(
-                                    fontSize: fontSize,
-                                    color: mainColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                      )
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: titleFontSize,
-              )
-            ],
-          )
+                SizedBox(
+                  height: titleFontSize,
+                )
+              ],
+            )
         ]
       ),
     );
