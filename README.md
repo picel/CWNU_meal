@@ -1,5 +1,7 @@
 # 창대학식
-[Korean]:(README.md)|[Japanese]:(README.jp.md)
+[![ko](https://img.shields.io/badge/lang-ko-red.svg)](https://github.com/picel/CWNU_meal/blob/master/README.md)
+[![ja](https://img.shields.io/badge/lang-ja-blue.svg)](https://github.com/picel/CWNU_meal/blob/master/README.jp.md)
+
 창원대학교 학식 정보를 쉽게 알 수 있는 앱
 
 ## 개발 환경

@@ -1,5 +1,6 @@
 # 昌大学食
-[Korean]:(README.md)|[Japanese]:(README.jp.md)
+[![ko](https://img.shields.io/badge/lang-ko-red.svg)](https://github.com/picel/CWNU_meal/blob/master/README.md)
+[![ja](https://img.shields.io/badge/lang-ja-blue.svg)](https://github.com/picel/CWNU_meal/blob/master/README.jp.md)
 
 昌原大學校の食堂情報を提供するアプリです。
 
