@@ -1,5 +1,5 @@
 # 창대학식
-
+[Korean]:(README.md)|[Japanese]:(README.jp.md)
 창원대학교 학식 정보를 쉽게 알 수 있는 앱
 
 ## 개발 환경
