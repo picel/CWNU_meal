@@ -5,9 +5,12 @@
       location = "group:Runner.xcworkspace">
    </FileRef>
    <FileRef
-      location = "group:Runner.xcodeproj">
+      location = "group:/Users/picel/develop/Flutter Projects/CWNU_meal/ios/Runner.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Runner.xcodeproj">
    </FileRef>
 </Workspace>

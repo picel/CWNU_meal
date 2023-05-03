@@ -36,7 +36,7 @@ class BonglimProvider extends ChangeNotifier {
     for (int i = 0; i < _bonglim.length; i++) {
       for (int j = 0; j < _bonglim[i].length; j++) {
         if (_bonglim[i][j].content == "") {
-          _bonglim[i].removeAt(j);
+          _bonglim[i][j].content = "운영 중지";
         }
       }
     }

@@ -66,31 +66,32 @@ class _NeuSwitchState extends State<NeuSwitch> {
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut, // 63 = 3, 67 = 2
                 left: (widget.selectedIndex) *
-                    (71 - (widget.elements[0].length * 2)),
+                    (70 - ((widget.elements[0].length - 1) * 3)),
                 right: (widget.elements.length - widget.selectedIndex - 1) *
-                    (71 - (widget.elements[0].length * 2)),
-                top: 2.5,
+                    (70 - ((widget.elements[0].length - 1) * 3)),
+                top: 4,
                 child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return ScaleTransition(child: child, scale: animation);
-                    },
-                    child: Neumorphic(
-                      style: NeumorphicStyle(
-                        boxShape: NeumorphicBoxShape.stadium(),
-                        lightSource: LightSource.topLeft,
-                        depth: 0,
-                        // color: Colors.white,
-                      ),
-                      padding: EdgeInsets.all(8),
-                      child: JuaText(
-                        text: widget.elements[widget.selectedIndex],
-                        fontSize: 15,
-                        bold: true,
-                        color: NeumorphicTheme.accentColor(context),
-                      ),
-                    )),
+                  duration: const Duration(milliseconds: 200),
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return ScaleTransition(child: child, scale: animation);
+                  },
+                  child: Neumorphic(
+                    style: NeumorphicStyle(
+                      boxShape: NeumorphicBoxShape.stadium(),
+                      lightSource: LightSource.topLeft,
+                      depth: 0,
+                      // color: Colors.white,
+                    ),
+                    padding: EdgeInsets.all(8),
+                    child: JuaText(
+                      text: widget.elements[widget.selectedIndex],
+                      fontSize: 15,
+                      bold: true,
+                      color: NeumorphicTheme.accentColor(context),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

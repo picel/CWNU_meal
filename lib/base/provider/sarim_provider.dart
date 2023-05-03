@@ -34,7 +34,7 @@ class SarimProvider extends ChangeNotifier {
     for (int i = 0; i < _sarim.length; i++) {
       for (int j = 0; j < _sarim[i].length; j++) {
         if (_sarim[i][j].content == "") {
-          _sarim[i].removeAt(j);
+          _sarim[i][j].content = "운영 중지";
         }
       }
     }

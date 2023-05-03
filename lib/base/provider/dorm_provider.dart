@@ -38,7 +38,7 @@ class DormProvider extends ChangeNotifier {
     for (int i = 0; i < _dorm.length; i++) {
       for (int j = 0; j < _dorm[i].length; j++) {
         if (_dorm[i][j].content == "") {
-          _dorm[i].removeAt(j);
+          _dorm[i][j].content = "운영 중지";
         }
       }
     }

@@ -1,6 +1,6 @@
 class DefaultSubModel {
-  final String title;
-  final String content;
+  String title;
+  String content;
 
   DefaultSubModel({
     required this.title,

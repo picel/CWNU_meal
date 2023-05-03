@@ -1,3 +1,4 @@
+import 'package:cwnumeal/base/model/default_submodel.dart';
 import 'package:cwnumeal/base/model/dorm_model.dart';
 import 'package:cwnumeal/base/repository/cdn_getter.dart';
 import 'package:flutter/foundation.dart';
@@ -64,7 +65,7 @@ class NowProvider extends ChangeNotifier {
 
     for (int i = 0; i < _now['dorm'].length; i++) {
       if (_now['dorm'][i].content == "") {
-        _now['dorm'].removeAt(i);
+        _now['dorm'][i].content = "운영 중지";
       }
     }
 
@@ -73,27 +74,41 @@ class NowProvider extends ChangeNotifier {
 
   _loadSarim() async {
     CdnGetter cdnGetter = CdnGetter();
-    _now['sarim'] = await cdnGetter.fetchSarim();
+    var data = await cdnGetter.fetchSarim();
 
     DateTime date = DateTime.now();
     String today = DateFormat('E').format(date);
 
     switch (today) {
       case 'Mon':
-        _now['sarim'] = _now['sarim'].monday;
+        _now['sarim'] = data.monday;
         break;
       case 'Tue':
-        _now['sarim'] = _now['sarim'].tuesday;
+        _now['sarim'] = data.tuesday;
         break;
       case 'Wed':
-        _now['sarim'] = _now['sarim'].wednesday;
+        _now['sarim'] = data.wednesday;
         break;
       case 'Thu':
-        _now['sarim'] = _now['sarim'].thursday;
+        _now['sarim'] = data.thursday;
         break;
       case 'Fri':
-        _now['sarim'] = _now['sarim'].friday;
+        _now['sarim'] = data.friday;
         break;
+      default:
+        _now['sarim'] = [
+          DefaultSubModel(
+            title: '운영 중지',
+            content: '주말은 쉬어요!',
+          ),
+        ];
+        break;
+    }
+
+    for (int i = 0; i < _now['sarim'].length; i++) {
+      if (_now['sarim'][i].content == "") {
+        _now['sarim'][i].content = "운영 중지";
+      }
     }
 
     notifyListeners();
@@ -101,27 +116,41 @@ class NowProvider extends ChangeNotifier {
 
   _loadBonglim() async {
     CdnGetter cdnGetter = CdnGetter();
-    _now['bonglim'] = await cdnGetter.fetchBonglim();
+    var data = await cdnGetter.fetchBonglim();
 
     DateTime date = DateTime.now();
     String today = DateFormat('E').format(date);
 
     switch (today) {
       case 'Mon':
-        _now['bonglim'] = _now['bonglim'].monday;
+        _now['bonglim'] = data.monday;
         break;
       case 'Tue':
-        _now['bonglim'] = _now['bonglim'].tuesday;
+        _now['bonglim'] = data.tuesday;
         break;
       case 'Wed':
-        _now['bonglim'] = _now['bonglim'].wednesday;
+        _now['bonglim'] = data.wednesday;
         break;
       case 'Thu':
-        _now['bonglim'] = _now['bonglim'].thursday;
+        _now['bonglim'] = data.thursday;
         break;
       case 'Fri':
-        _now['bonglim'] = _now['bonglim'].friday;
+        _now['bonglim'] = data.friday;
         break;
+      default:
+        _now['bonglim'] = [
+          DefaultSubModel(
+            title: '운영 중지',
+            content: '주말은 쉬어요!',
+          ),
+        ];
+        break;
+    }
+
+    for (int i = 0; i < _now['bonglim'].length; i++) {
+      if (_now['bonglim'][i].content == "") {
+        _now['bonglim'][i].content = "운영 중지";
+      }
     }
 
     notifyListeners();

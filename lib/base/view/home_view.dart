@@ -18,6 +18,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NeumorphicAppBar(
+        centerTitle: true,
         leading: CirclePositiveBox(
           onPressed: () {
             Navigator.pushNamed(context, '/settings');
@@ -48,7 +49,7 @@ class Home extends StatelessWidget {
       body: Provider.of<FavoriteProvider>(context).isFavoriteEmpty
           ? Center(
               child: JuaText(
-                text: "좌측 상단의 설정 메뉴에서 식당을 추가해주세요!",
+                text: "좌측 상단의 설정 메뉴에서\n식당을 추가해주세요!",
                 fontSize: 20,
                 bold: true,
                 color: NeumorphicTheme.accentColor(context),

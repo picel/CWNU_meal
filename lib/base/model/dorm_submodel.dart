@@ -1,7 +1,7 @@
 class DormSubModel {
-  final String title;
-  final String option;
-  final String content;
+  String title;
+  String option;
+  String content;
 
   DormSubModel({
     required this.title,

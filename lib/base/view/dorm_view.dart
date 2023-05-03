@@ -6,10 +6,8 @@ import 'package:cwnumeal/widget/ibm_text.dart';
 import 'package:cwnumeal/widget/jua_text.dart';
 import 'package:cwnumeal/widget/negative_box.dart';
 import 'package:cwnumeal/widget/neu_switch.dart';
-import 'package:cwnumeal/widget/square_positive_box.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DormView extends StatefulWidget {
@@ -29,138 +27,168 @@ class _DormViewState extends State<DormView> {
         length: 7,
         initialIndex: DayOfWeekINT().weekdayToInt(true),
         child: Scaffold(
-          appBar: NeumorphicAppBar(
-            title: JuaText(
-              text: "기숙사",
-              fontSize: 30,
-              bold: true,
-              color: NeumorphicTheme.accentColor(context),
-            ),
-            leading: CirclePositiveBox(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back_ios_new_rounded,
+            appBar: NeumorphicAppBar(
+              centerTitle: true,
+              title: JuaText(
+                text: "기숙사",
+                fontSize: 30,
+                bold: true,
                 color: NeumorphicTheme.accentColor(context),
               ),
-            ),
-            actions: [
-              CirclePositiveBox(
+              leading: CirclePositiveBox(
                 onPressed: () {
-                  Provider.of<DormProvider>(context, listen: false).refresh();
+                  Navigator.pop(context);
                 },
                 child: Icon(
-                  Icons.refresh_rounded,
+                  Icons.arrow_back_ios_new_rounded,
                   color: NeumorphicTheme.accentColor(context),
                 ),
               ),
-            ],
-          ),
-          bottomNavigationBar: SafeArea(
-            child: TabBar(
-              unselectedLabelColor: Colors.grey[400],
-              indicatorColor: Colors.transparent,
-              labelColor: NeumorphicTheme.accentColor(context),
-              tabs: const [
-                Tab(child: Text("월")),
-                Tab(child: Text("화")),
-                Tab(child: Text("수")),
-                Tab(child: Text("목")),
-                Tab(child: Text("금")),
-                Tab(child: Text("토")),
-                Tab(child: Text("일")),
+              actions: [
+                CirclePositiveBox(
+                  onPressed: () {
+                    Provider.of<DormProvider>(context, listen: false).refresh();
+                  },
+                  child: Icon(
+                    Icons.refresh_rounded,
+                    color: NeumorphicTheme.accentColor(context),
+                  ),
+                ),
               ],
             ),
-          ),
-          body: TabBarView(
-            children: List<Widget>.generate(7, (int index) {
-              return (Provider.of<DormProvider>(context).dorm.length == 0 ||
-                      Provider.of<DormProvider>(context).titles.length == 0)
-                  ? Center(
-                      child: SpinKitSquareCircle(
-                      color: NeumorphicTheme.accentColor(context),
-                      size: 30.0,
-                    ))
-                  : SingleChildScrollView(
-                      child: Column(children: [
-                        NeuSwitch(
-                          elements:
-                              Provider.of<DormProvider>(context).titles[index],
-                          onChanged: (idx) {
-                            setState(() {
-                              _selectedIndex = idx;
-                            });
-                          },
-                          selectedIndex: _selectedIndex,
-                        ),
-                        SizedBox(
-                          height: DeviceSize.height * 0.02,
-                        ),
-                        Column(
-                          children: List<Widget>.generate(
+            bottomNavigationBar: SafeArea(
+              child: TabBar(
+                unselectedLabelColor: Colors.grey[400],
+                indicatorColor: Colors.transparent,
+                labelColor: NeumorphicTheme.accentColor(context),
+                tabs: const [
+                  Tab(child: Text("월")),
+                  Tab(child: Text("화")),
+                  Tab(child: Text("수")),
+                  Tab(child: Text("목")),
+                  Tab(child: Text("금")),
+                  Tab(child: Text("토")),
+                  Tab(child: Text("일")),
+                ],
+              ),
+            ),
+            body: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IBMText(
+                  text: "업데이트 : ${Provider.of<DormProvider>(context).date}",
+                  fontSize: 15,
+                  bold: true,
+                  color: NeumorphicTheme.accentColor(context),
+                ),
+                SizedBox(
+                  height: DeviceSize.height * 0.02,
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: List<Widget>.generate(7, (int index) {
+                      return (Provider.of<DormProvider>(context).dorm.length ==
+                                  0 ||
                               Provider.of<DormProvider>(context)
-                                  .dorm[index]
-                                  .length, (int index2) {
-                            return Column(
-                              children: [
-                                (Provider.of<DormProvider>(context)
-                                            .titles[index][_selectedIndex] !=
-                                        Provider.of<DormProvider>(context,
-                                                listen: false)
-                                            .dorm[index][index2]
-                                            .title)
-                                    ? SizedBox()
-                                    : Column(
-                                        children: [
-                                          NegativeBox(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                IBMText(
-                                                  text:
-                                                      "${Provider.of<DormProvider>(context).dorm[index][index2].title} ${Provider.of<DormProvider>(context, listen: false).dorm[index][index2].option}",
-                                                  fontSize:
-                                                      DeviceSize.height * 0.025,
-                                                  bold: true,
-                                                  color: NeumorphicTheme
-                                                      .accentColor(context),
-                                                ),
-                                                SizedBox(
-                                                  height:
-                                                      DeviceSize.height * 0.01,
-                                                ),
-                                                IBMText(
-                                                  text:
-                                                      Provider.of<DormProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .dorm[index][index2]
-                                                          .content,
-                                                  fontSize:
-                                                      DeviceSize.height * 0.02,
-                                                  bold: true,
-                                                  color: NeumorphicTheme
-                                                      .accentColor(context),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: DeviceSize.height * 0.03,
-                                          ),
-                                        ],
-                                      ),
-                              ],
+                                      .titles
+                                      .length ==
+                                  0)
+                          ? Center(
+                              child: SpinKitSquareCircle(
+                              color: NeumorphicTheme.accentColor(context),
+                              size: 30.0,
+                            ))
+                          : SingleChildScrollView(
+                              child: Column(children: [
+                                NeuSwitch(
+                                  elements: Provider.of<DormProvider>(context)
+                                      .titles[index],
+                                  onChanged: (idx) {
+                                    setState(() {
+                                      _selectedIndex = idx;
+                                    });
+                                  },
+                                  selectedIndex: _selectedIndex,
+                                ),
+                                SizedBox(
+                                  height: DeviceSize.height * 0.02,
+                                ),
+                                Column(
+                                  children: List<Widget>.generate(
+                                      Provider.of<DormProvider>(context)
+                                          .dorm[index]
+                                          .length, (int index2) {
+                                    return Column(
+                                      children: [
+                                        (Provider.of<DormProvider>(context)
+                                                        .titles[index]
+                                                    [_selectedIndex] !=
+                                                Provider.of<DormProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .dorm[index][index2]
+                                                    .title)
+                                            ? SizedBox()
+                                            : Column(
+                                                children: [
+                                                  NegativeBox(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        IBMText(
+                                                          text:
+                                                              "${Provider.of<DormProvider>(context).dorm[index][index2].title} ${Provider.of<DormProvider>(context, listen: false).dorm[index][index2].option}",
+                                                          fontSize: DeviceSize
+                                                                  .height *
+                                                              0.025,
+                                                          bold: true,
+                                                          color: NeumorphicTheme
+                                                              .accentColor(
+                                                                  context),
+                                                        ),
+                                                        SizedBox(
+                                                          height: DeviceSize
+                                                                  .height *
+                                                              0.01,
+                                                        ),
+                                                        IBMText(
+                                                          text: Provider.of<
+                                                                      DormProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .dorm[index]
+                                                                  [index2]
+                                                              .content,
+                                                          fontSize: DeviceSize
+                                                                  .height *
+                                                              0.02,
+                                                          bold: true,
+                                                          color: NeumorphicTheme
+                                                              .accentColor(
+                                                                  context),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: DeviceSize.height *
+                                                        0.03,
+                                                  ),
+                                                ],
+                                              ),
+                                      ],
+                                    );
+                                  }),
+                                ),
+                              ]),
                             );
-                          }),
-                        ),
-                      ]),
-                    );
-            }),
-          ),
-        ),
+                    }),
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }

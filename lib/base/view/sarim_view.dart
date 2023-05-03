@@ -20,6 +20,7 @@ class SarimView extends StatelessWidget {
         initialIndex: DayOfWeekINT().weekdayToInt(true),
         child: Scaffold(
           appBar: NeumorphicAppBar(
+            centerTitle: true,
             title: JuaText(
               text: "사림관",
               fontSize: 30,
@@ -61,65 +62,87 @@ class SarimView extends StatelessWidget {
               ],
             ),
           ),
-          body: TabBarView(
-            children: List<Widget>.generate(5, (int index) {
-              return Provider.of<SarimProvider>(context).sarim.length == 0
-                  ? Center(
-                      child: SpinKitSquareCircle(
-                      color: NeumorphicTheme.accentColor(context),
-                      size: 30.0,
-                    ))
-                  : SingleChildScrollView(
-                      child: Column(
-                        children: List<Widget>.generate(
-                            Provider.of<SarimProvider>(context)
-                                .sarim[index]
-                                .length, (int index2) {
-                          return Column(
-                            children: [
-                              Column(
-                                children: [
-                                  NegativeBox(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+          body: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IBMText(
+                text: "업데이트 : ${Provider.of<SarimProvider>(context).date}",
+                fontSize: 15,
+                bold: true,
+                color: NeumorphicTheme.accentColor(context),
+              ),
+              SizedBox(
+                height: DeviceSize.height * 0.02,
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: List<Widget>.generate(5, (int index) {
+                    return Provider.of<SarimProvider>(context).sarim.length == 0
+                        ? Center(
+                            child: SpinKitSquareCircle(
+                            color: NeumorphicTheme.accentColor(context),
+                            size: 30.0,
+                          ))
+                        : SingleChildScrollView(
+                            child: Column(
+                              children: List<Widget>.generate(
+                                  Provider.of<SarimProvider>(context)
+                                      .sarim[index]
+                                      .length, (int index2) {
+                                return Column(
+                                  children: [
+                                    Column(
                                       children: [
-                                        IBMText(
-                                          text:
-                                              "${Provider.of<SarimProvider>(context).sarim[index][index2].title}",
-                                          fontSize: DeviceSize.height * 0.025,
-                                          bold: true,
-                                          color: NeumorphicTheme.accentColor(
-                                              context),
+                                        NegativeBox(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              IBMText(
+                                                text:
+                                                    "${Provider.of<SarimProvider>(context).sarim[index][index2].title}",
+                                                fontSize:
+                                                    DeviceSize.height * 0.025,
+                                                bold: true,
+                                                color:
+                                                    NeumorphicTheme.accentColor(
+                                                        context),
+                                              ),
+                                              SizedBox(
+                                                height:
+                                                    DeviceSize.height * 0.01,
+                                              ),
+                                              IBMText(
+                                                text:
+                                                    Provider.of<SarimProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .sarim[index][index2]
+                                                        .content,
+                                                fontSize:
+                                                    DeviceSize.height * 0.02,
+                                                bold: true,
+                                                color:
+                                                    NeumorphicTheme.accentColor(
+                                                        context),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         SizedBox(
-                                          height: DeviceSize.height * 0.01,
-                                        ),
-                                        IBMText(
-                                          text: Provider.of<SarimProvider>(
-                                                  context,
-                                                  listen: false)
-                                              .sarim[index][index2]
-                                              .content,
-                                          fontSize: DeviceSize.height * 0.02,
-                                          bold: true,
-                                          color: NeumorphicTheme.accentColor(
-                                              context),
+                                          height: DeviceSize.height * 0.03,
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: DeviceSize.height * 0.03,
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                );
+                              }),
+                            ),
                           );
-                        }),
-                      ),
-                    );
-            }),
+                  }),
+                ),
+              ),
+            ],
           ),
         ),
       ),

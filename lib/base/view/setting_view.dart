@@ -24,6 +24,7 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NeumorphicAppBar(
+        centerTitle: true,
         leading: CirclePositiveBox(
           onPressed: () {
             Navigator.pop(context);
@@ -116,7 +117,8 @@ class _SettingsViewState extends State<SettingsView> {
                         title: "봉림관",
                       ),
                       JuaText(
-                        text: "선택하신 식당이 앱 메인 화면에 표시됩니다.",
+                        text:
+                            "선택하신 식당이 앱 메인 화면에 표시됩니다.\n식단을 눌러 전체 식단을 확인할 수 있습니다.",
                         fontSize: DeviceSize.height * 0.02,
                         bold: false,
                         color: NeumorphicTheme.accentColor(context),
@@ -185,7 +187,7 @@ class _SettingsViewState extends State<SettingsView> {
                           color: NeumorphicTheme.accentColor(context),
                         ),
                         subtitle: JuaText(
-                          text: "3.1.0",
+                          text: "3.1.0 BETA BUILD 1",
                           fontSize: DeviceSize.height * 0.02,
                           bold: false,
                           color: NeumorphicTheme.accentColor(context),
@@ -233,7 +235,7 @@ class _SettingsViewState extends State<SettingsView> {
                       ListTile(
                         subtitle: JuaText(
                           text:
-                              "IVIS Lab\nDept. of Information & Communication Engineering, Changwon National University",
+                              "IVIS Lab\nDept. of Information & Communication Engineering\nChangwon National University",
                           fontSize: DeviceSize.height * 0.015,
                           bold: false,
                           color: NeumorphicTheme.accentColor(context),
