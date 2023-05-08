@@ -48,6 +48,7 @@ class _NeuSwitchState extends State<NeuSwitch> {
                           widget.onChanged(i);
                         },
                         child: Container(
+                          height: 42,
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Center(
                             child: JuaText(
@@ -59,7 +60,7 @@ class _NeuSwitchState extends State<NeuSwitch> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                 ],
               ),
               AnimatedPositioned(
@@ -81,14 +82,18 @@ class _NeuSwitchState extends State<NeuSwitch> {
                       boxShape: NeumorphicBoxShape.stadium(),
                       lightSource: LightSource.topLeft,
                       depth: 0,
-                      // color: Colors.white,
                     ),
-                    padding: EdgeInsets.all(8),
-                    child: JuaText(
-                      text: widget.elements[widget.selectedIndex],
-                      fontSize: 15,
-                      bold: true,
-                      color: NeumorphicTheme.accentColor(context),
+                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                    child: Container(
+                      height: 32,
+                      child: Center(
+                        child: JuaText(
+                          text: widget.elements[widget.selectedIndex],
+                          fontSize: 15,
+                          bold: true,
+                          color: NeumorphicTheme.accentColor(context),
+                        ),
+                      ),
                     ),
                   ),
                 ),
