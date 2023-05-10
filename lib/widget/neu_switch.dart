@@ -40,6 +40,7 @@ class _NeuSwitchState extends State<NeuSwitch> {
           child: Stack(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   for (int i = 0; i < widget.elements.length; i++)
                     Expanded(
@@ -47,9 +48,9 @@ class _NeuSwitchState extends State<NeuSwitch> {
                         onTap: () {
                           widget.onChanged(i);
                         },
+                        splashColor: Colors.transparent,
                         child: Container(
                           height: 42,
-                          padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Center(
                             child: JuaText(
                               text: widget.elements[i],
