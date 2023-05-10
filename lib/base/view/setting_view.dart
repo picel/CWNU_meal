@@ -1,13 +1,16 @@
 import 'package:cwnumeal/base/provider/favorite_provider.dart';
 import 'package:cwnumeal/base/provider/theme_provider.dart';
 import 'package:cwnumeal/util/device_size.dart';
+import 'package:cwnumeal/util/review.dart';
 import 'package:cwnumeal/widget/neu_checkbox.dart';
 import 'package:cwnumeal/widget/circle_positive_box.dart';
 import 'package:cwnumeal/widget/jua_text.dart';
 import 'package:cwnumeal/widget/negative_box.dart';
 import 'package:cwnumeal/widget/neu_display_mode_switch.dart';
+import 'package:cwnumeal/widget/square_positive_box.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 
 class SettingsView extends StatefulWidget {
@@ -170,6 +173,42 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 SizedBox(height: DeviceSize.height * 0.05),
                 JuaText(
+                  text: "ETC",
+                  fontSize: DeviceSize.height * 0.04,
+                  bold: true,
+                  color: NeumorphicTheme.accentColor(context),
+                ),
+                NegativeBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SquarePositiveBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            JuaText(
+                              bold: true,
+                              text: "응원하기",
+                              fontSize: DeviceSize.height * 0.027,
+                              color: NeumorphicTheme.accentColor(context),
+                            ),
+                            JuaText(
+                              bold: false,
+                              text: "스토어 리뷰 남기기",
+                              fontSize: DeviceSize.height * 0.02,
+                              color: NeumorphicTheme.accentColor(context),
+                            ),
+                          ],
+                        ),
+                        onPressed: () async {
+                          Review().storeReview();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: DeviceSize.height * 0.05),
+                JuaText(
                   text: "앱 정보",
                   fontSize: DeviceSize.height * 0.04,
                   bold: true,
@@ -187,7 +226,7 @@ class _SettingsViewState extends State<SettingsView> {
                           color: NeumorphicTheme.accentColor(context),
                         ),
                         subtitle: JuaText(
-                          text: "3.1.0 BETA BUILD 1",
+                          text: "3.1.0",
                           fontSize: DeviceSize.height * 0.02,
                           bold: false,
                           color: NeumorphicTheme.accentColor(context),
