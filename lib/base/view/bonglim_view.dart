@@ -1,6 +1,7 @@
 import 'package:cwnumeal/base/provider/bonglim_provider.dart';
 import 'package:cwnumeal/util/device_size.dart';
 import 'package:cwnumeal/util/get_dayOfWeek_int.dart';
+import 'package:cwnumeal/util/lauch_url.dart';
 import 'package:cwnumeal/widget/circle_positive_box.dart';
 import 'package:cwnumeal/widget/ibm_text.dart';
 import 'package:cwnumeal/widget/jua_text.dart';
@@ -56,6 +57,18 @@ class _BonglimViewState extends State<BonglimView> {
                 ),
               ),
             ],
+          ),
+          floatingActionButton: NeumorphicFloatingActionButton(
+            mini: true,
+            child: Icon(
+              Icons.public,
+              size: 30,
+              color: NeumorphicTheme.accentColor(context),
+            ),
+            onPressed: () {
+              LaunchURL().openURL(
+                  "https://www.changwon.ac.kr/kor/di/diView/dietView.do?mi=10198&kind=B");
+            },
           ),
           bottomNavigationBar: SafeArea(
             child: TabBar(
