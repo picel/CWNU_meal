@@ -54,8 +54,6 @@ class DormProvider extends ChangeNotifier {
       _titles.add(temp);
     }
 
-    print(_titles);
-
     notifyListeners();
   }
 }
